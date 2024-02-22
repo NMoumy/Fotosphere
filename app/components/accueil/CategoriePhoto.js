@@ -42,13 +42,12 @@ export default class CategoriePhoto extends Component {
 
 const styles = StyleSheet.create({
   conteneur: {
-    backgroundColor: "dodgerblue",
+    backgroundColor: "white",
     flexDirection: "row",
     justifyContent: "space-between",
     height: 50,
   },
   categorie: {
-    backgroundColor: "white",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -64,13 +63,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     height: 3,
-    backgroundColor: "red",
+    backgroundColor: "#EA5D55",
   },
   barreNonSelectionee: {
     position: "absolute",
     bottom: 0,
     height: 3,
     width: "100%",
-    backgroundColor: "orange",
+    backgroundColor: "#F7B267",
   },
 });

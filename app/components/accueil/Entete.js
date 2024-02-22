@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     color: "#F27059",
+    // fontFamily: "Poppins-ExtraBold",
     textAlign: "center",
     padding: 20,
   },
