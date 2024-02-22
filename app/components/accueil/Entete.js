@@ -1,21 +1,16 @@
-import { StyleSheet, Text, TouchableOpacity, View, Platform, StatusBar } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { Component } from "react";
 
-export default class Entete extends Component {
-  render() {
-    return (
-      <View style={styles.conteneur}>
-        <Text style={styles.logo}>FotoSphere</Text>
-      </View>
-    );
-  }
+export default function Entete() {
+  return (
+    <View style={styles.conteneur}>
+      <Text style={styles.logo}>FotoSphere</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-  conteneur: {
-    backgroundColor: "white",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
-  },
+  conteneur: {},
 
   logo: {
     fontSize: 30,

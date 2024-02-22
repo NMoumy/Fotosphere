@@ -1,43 +1,37 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View, Animated, Dimensions } from "react-native";
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Animated, Dimensions } from 'react-native';
 
-export default class CategoriePhoto extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categorieSelectionnee: 0,
-      positionBarre: new Animated.Value(0), // Position initiale de la barre
-    };
-  }
+export default function CategoriePhoto() {
+  const [categorieSelectionnee, setCategorieSelectionnee] = useState(0);
+  const positionBarre = useState(new Animated.Value(0))[0];
 
-  selectionnerCategorie = (index) => {
-    this.setState({ categorieSelectionnee: index });
-    Animated.timing(this.state.positionBarre, {
-      toValue: (Dimensions.get("window").width / 3) * index, // Divisez la largeur totale par le nombre de catégories
+  const selectionnerCategorie = (index) => {
+    setCategorieSelectionnee(index);
+    Animated.timing(positionBarre, {
+      toValue: (Dimensions.get("window").width / 3) * index,
       duration: 200,
       useNativeDriver: false,
     }).start();
   };
 
-  render() {
-    const categories = ["Nouveautés", "Populaires", "Abonnements"];
-    return (
-      <View style={styles.conteneur}>
-        {categories.map((categorie, index) => (
-          <View key={index} style={styles.categorie} onTouchEnd={() => this.selectionnerCategorie(index)}>
-            <Text style={styles.texte}>{categorie}</Text>
-          </View>
-        ))}
-        <View style={styles.barreNonSelectionee} />
-        <Animated.View
-          style={[
-            styles.barre,
-            { width: Dimensions.get("window").width / 3, transform: [{ translateX: this.state.positionBarre }] },
-          ]}
-        />
-      </View>
-    );
-  }
+  const categories = ["Nouveautés", "Populaires", "Abonnements"];
+
+  return (
+    <View style={styles.conteneur}>
+      {categories.map((categorie, index) => (
+        <View key={index} style={styles.categorie} onTouchEnd={() => selectionnerCategorie(index)}>
+          <Text style={styles.texte}>{categorie}</Text>
+        </View>
+      ))}
+      <View style={styles.barreNonSelectionee} />
+      <Animated.View
+        style={[
+          styles.barre,
+          { width: Dimensions.get("window").width / 3, transform: [{ translateX: positionBarre }] },
+        ]}
+      />
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
