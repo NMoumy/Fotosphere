@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   conteneur: {},
 
   logo: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: "bold",
     color: "#F27059",
     // fontFamily: "Poppins-ExtraBold",

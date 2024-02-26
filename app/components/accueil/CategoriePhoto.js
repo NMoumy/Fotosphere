@@ -20,7 +20,7 @@ export default function CategoriePhoto() {
     <View style={styles.conteneur}>
       {categories.map((categorie, index) => (
         <View key={index} style={styles.categorie} onTouchEnd={() => selectionnerCategorie(index)}>
-          <Text style={styles.texte}>{categorie}</Text>
+          <Text style={[styles.texte, categorieSelectionnee === index && styles.texteSelectionne]}>{categorie}</Text>
         </View>
       ))}
       <View style={styles.barreNonSelectionee} />
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flexDirection: "row",
     justifyContent: "space-between",
-    height: 50,
+    height: 40,
   },
   categorie: {
     flex: 1,
@@ -51,19 +51,22 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "bold",
     fontSize: 16,
-    color: "#F4845F",
+    color: "#C2C2C2",
+  },
+  texteSelectionne: {
+    color: "#EA5D55",
   },
   barre: {
     position: "absolute",
     bottom: 0,
-    height: 3,
+    height: 2,
     backgroundColor: "#EA5D55",
   },
   barreNonSelectionee: {
     position: "absolute",
     bottom: 0,
-    height: 3,
+    height: 1,
     width: "100%",
-    backgroundColor: "#F7B267",
+    backgroundColor: "#C2C2C2",
   },
 });

@@ -5,7 +5,7 @@ export const POSTS = [
     imageUrl: "https://www.w3schools.com/w3images/lights.jpg",
     user: USERS[0].user,
     likes: 128,
-    description: "Photo de lumière",
+    description: "Hello Gz.. Good morning 😎dont forgot to follow and comment this post... ",
     photoDeProfil: USERS[0].image,
     date: "2021-03-12",
     commentaires: [
