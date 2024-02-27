@@ -23,7 +23,7 @@ export default function Post({ post }) {
           <View style={styles.containeurLikes}>
             <TouchableOpacity>
               <Image
-                source={require("../../assets/coeur.png")}
+                source={require("../../assets/images/coeur.png")}
                 style={{ width: 20, height: 20, resizeMode: "contain" }}
               />
             </TouchableOpacity>
@@ -33,7 +33,7 @@ export default function Post({ post }) {
           <View style={styles.containeurCommentaires}>
             <TouchableOpacity>
               <Image
-                source={require("../../assets/commentaire.png")}
+                source={require("../../assets/images/commentaire.png")}
                 style={{ width: 20, height: 20, resizeMode: "contain" }}
               />
             </TouchableOpacity>
