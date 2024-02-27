@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   barre: {
     position: "absolute",
     bottom: 0,
-    height: 2,
+    height: 1,
     backgroundColor: "#EA5D55",
   },
   barreNonSelectionee: {

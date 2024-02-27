@@ -7,7 +7,7 @@ export default function Post({ post }) {
       <View style={styles.entetePost}>
         <View style={styles.infoProfil}>
           <Image source={{ uri: post.photoDeProfil }} style={{ width: 40, height: 40, borderRadius: 50 }} />
-          <Text>{post.user}</Text>
+          <Text style={{ fontWeight: "bold" }}>{post.user}</Text>
         </View>
         <Text style={{ color: "#7C8089" }}>{post.date}</Text>
       </View>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   conteneurMedia: {
     width: "100%",
-    height: 350,
+    height: 325,
     borderBottomWidth: 1,
     borderTopWidth: 1,
     borderColor: "#D9D9D9",

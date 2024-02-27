@@ -14,9 +14,8 @@ const styles = StyleSheet.create({
 
   logo: {
     fontSize: 25,
-    fontWeight: "bold",
-    color: "#F27059",
-    // fontFamily: "Poppins-ExtraBold",
+    color: "#EA5D55",
+    fontFamily: "Poppins-ExtraBold",
     textAlign: "center",
     padding: 20,
   },

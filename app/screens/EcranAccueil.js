@@ -4,7 +4,7 @@ import CategoriePhoto from "../components/accueil/CategoriePhoto";
 import Post from "../components/accueil/Post";
 import { POSTS } from "../data/Posts";
 
-export default function App() {
+export default function EcranAccueil() {
   return (
     <SafeAreaView style={styles.conteneur}>
       <Entete />
