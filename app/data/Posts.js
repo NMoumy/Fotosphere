@@ -36,6 +36,10 @@ export const POSTS = [
         user: "BaleineMoche",
         commentaire: "Magnifique, WOW incroyable!!!!!",
       },
+      {
+        user: "BaleineMoche",
+        commentaire: "Pauvre chat...",
+      },
     ],
   },
 ];

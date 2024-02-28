@@ -1,9 +1,9 @@
 import { SafeAreaView, StyleSheet, Text, View, Platform, StatusBar, ScrollView } from "react-native";
-import Entete from "../components/accueil/Entete";
-import CategoriePhoto from "../components/accueil/CategoriePhoto";
-import Post from "../components/accueil/Post";
+import Entete from "../components/main/Entete";
+import CategoriePhoto from "../components/main/CategoriePhoto";
+import Post from "../components/main/Post";
 import { POSTS } from "../data/Posts";
-import NavBar, { navBarIcons } from "../components/NavBar";
+import NavBar, { navBarIcons } from "../components/main/NavBar";
 
 export default function EcranAccueil() {
   return (
