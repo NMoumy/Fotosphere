@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     paddingVertical: 10,
-    borderTopWidth: 1,
+    borderTopWidth: 2,
     borderTopColor: "#D9D9D9",
   },
   icon: {
