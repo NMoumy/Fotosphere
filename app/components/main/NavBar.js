@@ -4,18 +4,18 @@ import React, { useState } from "react";
 export const navBarIcons = [
   {
     nom: "accueil",
-    active: require("../assets/images/accueil-active.png"),
-    inactive: require("../assets/images/accueil-inactive.png"),
+    active: require("../../assets/images/accueil-active.png"),
+    inactive: require("../../assets/images/accueil-inactive.png"),
   },
   {
     nom: "ajouter",
-    active: require("../assets/images/ajouter-active.png"),
-    inactive: require("../assets/images/ajouter-inactive.png"),
+    active: require("../../assets/images/ajouter-active.png"),
+    inactive: require("../../assets/images/ajouter-inactive.png"),
   },
   {
     nom: "profil",
-    active: require("../assets/images/profil-active.png"),
-    inactive: require("../assets/images/profil-inactive.png"),
+    active: require("../../assets/images/profil-active.png"),
+    inactive: require("../../assets/images/profil-inactive.png"),
   },
 ];
 
@@ -59,6 +59,6 @@ const styles = StyleSheet.create({
   iconAjouter: {
     width: 45,
     height: 45,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
 });
