@@ -17,6 +17,6 @@ const styles = StyleSheet.create({
     color: "#EA5D55",
     fontFamily: "Poppins-ExtraBold",
     textAlign: "center",
-    padding: 20,
+    padding: 10,
   },
 });

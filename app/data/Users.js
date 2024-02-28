@@ -1,11 +1,11 @@
 export const USERS = [
   {
     user: "CafardRouge",
-    image: "https://www.w3schools.com/w3images/avatar2.png",
+    image: "https://images.pexels.com/photos/20344852/pexels-photo-20344852/free-photo-of-portrait-fashionista-arriere-plan-flou.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
   },
   {
     user: "CafardBleu",
-    image: "https://www.w3schools.com/w3images/avatar6.png",
+    image: "https://images.pexels.com/photos/20016591/pexels-photo-20016591/free-photo-of-aube-mode-homme-amour.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
   },
   {
     user: "CafardVert",

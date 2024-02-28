@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Animated, Dimensions } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, Animated, Dimensions } from "react-native";
 
 export default function CategoriePhoto() {
   const [categorieSelectionnee, setCategorieSelectionnee] = useState(0);
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     flexDirection: "row",
     justifyContent: "space-between",
-    height: 40,
+    // height: 40,
   },
   categorie: {
     flex: 1,
@@ -49,9 +49,10 @@ const styles = StyleSheet.create({
   },
   texte: {
     textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 16,
-    color: "#C2C2C2",
+    // fontWeight: "bold",
+    fontSize: 14,
+    color: "#7C8089",
+    fontFamily: "Inter-ExtraBold",
   },
   texteSelectionne: {
     color: "#EA5D55",
@@ -59,14 +60,14 @@ const styles = StyleSheet.create({
   barre: {
     position: "absolute",
     bottom: 0,
-    height: 1,
+    height: 2,
     backgroundColor: "#EA5D55",
   },
   barreNonSelectionee: {
     position: "absolute",
     bottom: 0,
-    height: 1,
+    height: 2,
     width: "100%",
-    backgroundColor: "#C2C2C2",
+    backgroundColor: "#D9D9D9",
   },
 });

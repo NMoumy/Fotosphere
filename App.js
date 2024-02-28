@@ -1,8 +1,6 @@
 import { useCallback } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
-import * as Font from "expo-font";
-
 import * as SplashScreen from "expo-splash-screen";
 import EcranAccueil from "./app/screens/EcranAccueil";
 

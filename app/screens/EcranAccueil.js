@@ -3,6 +3,7 @@ import Entete from "../components/accueil/Entete";
 import CategoriePhoto from "../components/accueil/CategoriePhoto";
 import Post from "../components/accueil/Post";
 import { POSTS } from "../data/Posts";
+import NavBar, { navBarIcons } from "../components/NavBar";
 
 export default function EcranAccueil() {
   return (
@@ -14,6 +15,7 @@ export default function EcranAccueil() {
           <Post key={index} post={post} />
         ))}
       </ScrollView>
+      <NavBar icons={navBarIcons} />
     </SafeAreaView>
   );
 }

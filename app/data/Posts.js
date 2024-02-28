@@ -2,7 +2,7 @@ import { USERS } from "./Users";
 
 export const POSTS = [
   {
-    imageUrl: "https://www.w3schools.com/w3images/lights.jpg",
+    imageUrl: "https://images.pexels.com/photos/20141313/pexels-photo-20141313/free-photo-of-paysage-ete-building-batiment.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
     user: USERS[0].user,
     likes: 128,
     description: "Hello Gz.. Good morning 😎dont forgot to follow and comment this post... ",
@@ -21,7 +21,7 @@ export const POSTS = [
   },
   {
     imageUrl:
-      "https://www.adorama.com/alc/wp-content/uploads/2018/11/landscape-photography-tips-yosemite-valley-feature.jpg",
+      "https://images.pexels.com/photos/20332518/pexels-photo-20332518.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     user: USERS[1].user,
     likes: 100,
     description: "Photo de lumière",

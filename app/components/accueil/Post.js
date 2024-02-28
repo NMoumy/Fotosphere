@@ -7,9 +7,9 @@ export default function Post({ post }) {
       <View style={styles.entetePost}>
         <View style={styles.infoProfil}>
           <Image source={{ uri: post.photoDeProfil }} style={{ width: 40, height: 40, borderRadius: 50 }} />
-          <Text style={{ fontWeight: "bold" }}>{post.user}</Text>
+          <Text style={{ fontFamily: "Inter-Bold", color: "#222222" }}>{post.user}</Text>
         </View>
-        <Text style={{ color: "#7C8089" }}>{post.date}</Text>
+        <Text style={{ color: "#7C8089", fontFamily: "Inter-Regular", }}>{post.date}</Text>
       </View>
 
       <View style={styles.conteneurMedia}>
@@ -17,7 +17,7 @@ export default function Post({ post }) {
       </View>
 
       <View style={styles.infoPost}>
-        <Text>{post.description}</Text>
+        <Text style={{ fontFamily: "Inter-Regular", color: "#222222" }}>{post.description}</Text>
 
         <View style={styles.containeurIcons}>
           <View style={styles.containeurLikes}>
@@ -48,6 +48,7 @@ export default function Post({ post }) {
 const styles = StyleSheet.create({
   containeur: {
     paddingVertical: 15,
+    color: "red",
     // width: "98%",
     // alignItems: "center",
   },
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     height: 325,
     borderBottomWidth: 1,
     borderTopWidth: 1,
-    borderColor: "#D9D9D9",
+    borderColor: "#EFEFEF",
   },
   infoPost: {
     paddingHorizontal: 10,
