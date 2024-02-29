@@ -2,7 +2,7 @@ import { SafeAreaView, StyleSheet, Text, View, Platform, StatusBar, ScrollView }
 import Entete from "../components/main/Entete";
 import CategoriePhoto from "../components/main/CategoriePhoto";
 import Post from "../components/main/Post";
-import { POSTS } from "../data/Posts";
+import { POSTS } from "../services/firebase/data/Posts";
 import NavBar, { navBarIcons } from "../components/main/NavBar";
 
 export default function EcranAccueil() {

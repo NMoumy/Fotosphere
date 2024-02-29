@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import EcranAccueil from "./app/screens/EcranAccueil";
 import * as NavigationBar from 'expo-navigation-bar';
+import EcranAjoutPost from "./app/screens/EcranAjoutPost";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -30,7 +31,12 @@ export default function App() {
   }
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <EcranAccueil />
+      {/* <EcranAccueil /> */}
+      <EcranAjoutPost />
+      {/* <EcranConnexion /> */}
+      {/* <EcranInscription /> */}
+      {/* <EcranProfil /> */}
+      {/* <EcranParametre /> */}
     </View>
   );
 }

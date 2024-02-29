@@ -33,3 +33,9 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+# Temporaire
+app/services/firebase/data/abonnements.js
+app/services/firebase/data/commentaires.js
+app/services/firebase/data/likes.js
+app/services/firebase/data/postsDB.js
