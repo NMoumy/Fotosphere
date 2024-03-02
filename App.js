@@ -3,13 +3,13 @@ import { Text, View, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import EcranAccueil from "./app/screens/EcranAccueil";
-import * as NavigationBar from 'expo-navigation-bar';
+import * as NavigationBar from "expo-navigation-bar";
 import EcranAjoutPost from "./app/screens/EcranAjoutPost";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  NavigationBar.setBackgroundColorAsync('transparent');
+  NavigationBar.setBackgroundColorAsync("transparent");
 
   const [fontsLoaded, fontError] = useFonts({
     "Inter-Bold": require("./app/assets/fonts/Inter-Bold.ttf"),
