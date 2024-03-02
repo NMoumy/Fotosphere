@@ -1,4 +1,4 @@
-import { View, Text, Platform, StatusBar, SafeAreaView } from "react-native";
+import { View, Text, Platform, StatusBar, SafeAreaView, StyleSheet } from "react-native";
 import React from "react";
 
 export default function EcranProfil() {

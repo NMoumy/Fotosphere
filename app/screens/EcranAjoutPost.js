@@ -4,7 +4,6 @@ import { genererUtilisateur } from "../services/firebase/generateurUtilisateurs"
 import EnteteNouveauPost from "../components/nouveauPost/EnteteNouveauPost";
 import AjoutPost from "../components/nouveauPost/AjoutPost";
 
-
 export default function EcranAjoutPost() {
   return (
     <SafeAreaView style={styles.conteneur}>

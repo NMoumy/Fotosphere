@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Button, Image, Platform, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import * as NavigationBar from "expo-navigation-bar";
 
 export default function AjoutPost() {
   const [image, setImage] = useState(null);
@@ -66,6 +67,7 @@ export default function AjoutPost() {
 const styles = StyleSheet.create({
   conteneur: {
     flex: 1,
+    backgroundColor: "#FAFAFA",
     // justifyContent: "space-between",
   },
   conteneurForm: {
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     borderWidth: 1,
     width: "85%",
-    padding: 5,
+    paddingHorizontal: 5,
   },
   btnSoumettre: {
     backgroundColor: "#F27059",

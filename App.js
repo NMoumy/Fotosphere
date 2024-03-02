@@ -2,9 +2,14 @@ import { useCallback } from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import EcranAccueil from "./app/screens/EcranAccueil";
 import * as NavigationBar from "expo-navigation-bar";
+import EcranAccueil from "./app/screens/EcranAccueil";
 import EcranAjoutPost from "./app/screens/EcranAjoutPost";
+import EcranIntro from "./app/screens/EcranIntro";
+import EcranConnexion from "./app/screens/EcranConnexion";
+import EcranInscription from "./app/screens/EcranInscription";
+import EcranProfil from "./app/screens/EcranProfil";
+import EcranParametre from "./app/screens/EcranParametre";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -32,8 +37,9 @@ export default function App() {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       {/* <EcranAccueil /> */}
-      <EcranAjoutPost />
-      {/* <EcranConnexion /> */}
+      {/* <EcranAjoutPost /> */}
+      {/* <EcranIntro /> */}
+      <EcranConnexion />
       {/* <EcranInscription /> */}
       {/* <EcranProfil /> */}
       {/* <EcranParametre /> */}
