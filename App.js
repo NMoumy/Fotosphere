@@ -11,7 +11,6 @@ import EcranInscription from "./app/screens/EcranInscription";
 import EcranProfil from "./app/screens/EcranProfil";
 import EcranParametre from "./app/screens/EcranParametre";
 import EcranModifProfil from "./app/screens/EcranModifProfil";
-import EcranCreationProfil from "./app/screens/EcranCreationProfil";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -43,9 +42,8 @@ export default function App() {
       {/* <EcranIntro /> */}
       {/* <EcranConnexion /> */}
       {/* <EcranInscription /> */}
-      <EcranProfil />
-      {/* <EcranCreationProfil /> */}
-      {/* <EcranModifProfil /> */}
+      {/* <EcranProfil /> */}
+      <EcranModifProfil />
       {/* <EcranParametre /> */}
     </View>
   );

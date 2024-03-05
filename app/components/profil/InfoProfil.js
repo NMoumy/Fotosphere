@@ -32,15 +32,15 @@ export default function InfoProfil() {
       <Text style={styles.textbio}>{bio}</Text>
       <View style={styles.conteneurStatus}>
         <View style={styles.infoStatus}>
-          <Text style={{ fontFamily: "Inter-ExtraBold" }}>{nbPublications}</Text>
+          <Text style={{ fontFamily: "Inter-SemiBold" }}>{nbPublications}</Text>
           <Text style={{ fontFamily: "Inter-Regular" }}>Publications</Text>
         </View>
         <View style={styles.infoStatus}>
-          <Text style={{ fontFamily: "Inter-ExtraBold" }}>{nbAbonnes}</Text>
+          <Text style={{ fontFamily: "Inter-SemiBold" }}>{nbAbonnes}</Text>
           <Text style={{ fontFamily: "Inter-Regular" }}>Abonnés</Text>
         </View>
         <View style={styles.infoStatus}>
-          <Text style={{ fontFamily: "Inter-ExtraBold" }}>{nbAbonnements}</Text>
+          <Text style={{ fontFamily: "Inter-SemiBold" }}>{nbAbonnements}</Text>
           <Text style={{ fontFamily: "Inter-Regular" }}>Abonnements</Text>
         </View>
       </View>
@@ -80,13 +80,13 @@ const styles = StyleSheet.create({
     // position: "absolute",
     top: "-25%",
     // left: "50%",
-    borderWidth: 5,
+    borderWidth: 3,
     borderColor: "white",
   },
 
   textNom: {
     fontSize: 16,
-    fontFamily: "Inter-Bold",
+    fontFamily: "Inter-SemiBold",
     top: -15,
   },
 
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     paddingVertical: 30,
-    width: "100%",
+    width: "85%",
   },
 
   infoStatus: {
@@ -112,14 +112,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#F27059",
     borderWidth: 2,
     borderColor: "#EA5D55",
-    width: "45%",
-    paddingVertical: 8,
+    width: "40%",
+    paddingVertical: 4,
     borderRadius: 5,
     alignItems: "center",
   },
 
   texteBouton: {
-    fontSize: 16,
+    fontSize: 14,
     color: "white",
     fontFamily: "Inter-SemiBold",
   },
