@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 
-export default function FormulaireDeConnexion() {
+export default function FormulaireConnexion() {
   const [courriel, setCourriel] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
 

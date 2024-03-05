@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Button, Image, Platform, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import * as NavigationBar from "expo-navigation-bar";
 
 export default function AjoutPost() {
   const [image, setImage] = useState(null);

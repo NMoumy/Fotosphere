@@ -38,8 +38,7 @@ export default function NavBar({ icons }) {
       ))}
     </View>
   );
-}
-9;
+};
 
 const styles = StyleSheet.create({
   conteneur: {
