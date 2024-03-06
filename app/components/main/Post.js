@@ -43,8 +43,7 @@ export default function Post({ post }) {
         <Text style={{ fontFamily: "Inter-Regular", color: "#222222" }}>{post.description}</Text>
 
         <View style={styles.conteneurIcons}>
-          <View style={styles.conteneurLikes}>
-            <TouchableOpacity onPress={basculerLike}>
+            <TouchableOpacity onPress={basculerLike} style={styles.conteneurLikes}>
               <Image
                 source={
                   activeLike
@@ -53,19 +52,16 @@ export default function Post({ post }) {
                 }
                 style={{ width: 20, height: 20, resizeMode: "contain" }}
               />
+              <Text style={{ color: "#7C8089" }}>{nombreLikes}</Text>
             </TouchableOpacity>
-            <Text style={{ color: "#7C8089" }}>{nombreLikes}</Text>
-          </View>
 
-          <View style={styles.conteneurCommentaires}>
-            <TouchableOpacity onPress={ouvrirCommentaires}>
+            <TouchableOpacity onPress={ouvrirCommentaires} style={styles.conteneurCommentaires}>
               <Image
                 source={require("../../assets/images/commentaire.png")}
                 style={{ width: 20, height: 20, resizeMode: "contain" }}
               />
+              <Text style={{ color: "#7C8089" }}>{post.commentaires.length}</Text>
             </TouchableOpacity>
-            <Text style={{ color: "#7C8089" }}>{post.commentaires.length}</Text>
-          </View>
         </View>
 
         <Modal visible={modalVisible} transparent={true}>
@@ -145,7 +141,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.5)",
-    paddingTop: StatusBar.currentHeight,
+    // paddingTop: -StatusBar.currentHeight,
   },
   conteneurGlobalCommentaires: {
     // Conteneur des commentaires global

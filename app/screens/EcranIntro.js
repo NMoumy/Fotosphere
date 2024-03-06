@@ -1,5 +1,5 @@
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, Platform, StatusBar, SafeAreaView, Image } from "react-native";
-import React from "react";
 
 export default function EcranIntro() {
   return (
