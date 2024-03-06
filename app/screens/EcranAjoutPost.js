@@ -4,11 +4,11 @@ import { genererUtilisateur } from "../services/firebase/generateurUtilisateurs"
 import AjoutPost from "../components/nouveauPost/AjoutPost";
 import EnteteRetour from "../components/nouveauPost/EnteteRetour";
 
-export default function EcranAjoutPost() {
+export default function EcranAjoutPost({navigation}) {
   return (
     <SafeAreaView style={styles.conteneur}>
       {/* <Button onPress={genererUtilisateur} title="Ajouter un post" /> */}
-      <EnteteRetour titre="Nouvelle publication" />
+      <EnteteRetour navigation={navigation} titre="Nouvelle publication" />
       <AjoutPost />
     </SafeAreaView>
   );

@@ -13,14 +13,18 @@ import EcranParametre from "./app/screens/EcranParametre";
 import EcranModifProfil from "./app/screens/EcranModifProfil";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState, useEffect } from 'react';
 
 SplashScreen.preventAutoHideAsync();
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  // Changement de la couleur de la barre de navigation
   NavigationBar.setBackgroundColorAsync("transparent");
 
+  // Chargement des polices
   const [fontsLoaded, fontError] = useFonts({
     "Inter-Bold": require("./app/assets/fonts/Inter-Bold.ttf"),
     "Inter-ExtraBold": require("./app/assets/fonts/Inter-ExtraBold.ttf"),
@@ -40,10 +44,11 @@ export default function App() {
     return null;
   }
 
+  
   return (
     <NavigationContainer>
       <View style={styles.container} onLayout={onLayoutRootView}>
-        <Stack.Navigator initialRouteName="Accueil" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName="Inscription" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Accueil" component={EcranAccueil} />
           <Stack.Screen name="AjoutPost" component={EcranAjoutPost} />
           <Stack.Screen name="Intro" component={EcranIntro} />
@@ -63,67 +68,3 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
-
-//////////////////////////////////////////////////////////////////////////////////////
-// import { useCallback } from "react";
-// import { View, StyleSheet } from "react-native";
-// import { useFonts } from "expo-font";
-// import * as SplashScreen from "expo-splash-screen";
-// import * as NavigationBar from "expo-navigation-bar";
-// import EcranAccueil from "./app/screens/EcranAccueil";
-// import EcranAjoutPost from "./app/screens/EcranAjoutPost";
-// import EcranIntro from "./app/screens/EcranIntro";
-// import EcranConnexion from "./app/screens/EcranConnexion";
-// import EcranInscription from "./app/screens/EcranInscription";
-// import EcranProfil from "./app/screens/EcranProfil";
-// import EcranParametre from "./app/screens/EcranParametre";
-// import EcranModifProfil from "./app/screens/EcranModifProfil";
-// import { NavigationContainer } from "@react-navigation/native";
-// import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-// SplashScreen.preventAutoHideAsync();
-
-// const Stack = createNativeStackNavigator();
-
-// export default function App() {
-//   NavigationBar.setBackgroundColorAsync("transparent");
-
-//   const [fontsLoaded, fontError] = useFonts({
-//     "Inter-Bold": require("./app/assets/fonts/Inter-Bold.ttf"),
-//     "Inter-ExtraBold": require("./app/assets/fonts/Inter-ExtraBold.ttf"),
-//     "Inter-Medium": require("./app/assets/fonts/Inter-Medium.ttf"),
-//     "Inter-SemiBold": require("./app/assets/fonts/Inter-SemiBold.ttf"),
-//     "Inter-Regular": require("./app/assets/fonts/Inter-Regular.ttf"),
-//     "Poppins-ExtraBold": require("./app/assets/fonts/Poppins-ExtraBold.ttf"),
-//   });
-
-//   const onLayoutRootView = useCallback(async () => {
-//     if (fontsLoaded || fontError) {
-//       await SplashScreen.hideAsync();
-//     }
-//   }, [fontsLoaded, fontError]);
-
-//   if (!fontsLoaded && !fontError) {
-//     return null;
-//   }
-//   return (
-//     <NavigationContainer>
-//       <View style={styles.container} onLayout={onLayoutRootView}>
-//         <EcranAccueil />
-//         {/* <EcranAjoutPost /> */}
-//         {/* <EcranIntro /> */}
-//         {/* <EcranConnexion /> */}
-//         {/* <EcranInscription /> */}
-//         {/* <EcranProfil /> */}
-//         {/* <EcranModifProfil /> */}
-//         {/* <EcranParametre /> */}
-//       </View>
-//     </NavigationContainer>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//   },
-// });

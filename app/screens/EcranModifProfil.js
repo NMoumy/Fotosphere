@@ -3,10 +3,10 @@ import React from "react";
 import EnteteRetour from "../components/nouveauPost/EnteteRetour";
 import FormulaireModif from "../components/modifProfil/FormulaireModif";
 
-export default function EcranModifProfil() {
+export default function EcranModifProfil({navigation}) {
   return (
     <SafeAreaView style={styles.conteneur}>
-      <EnteteRetour titre="Modifier le profil" />
+      <EnteteRetour navigation={navigation} titre="Modifier le profil" />
       <FormulaireModif />
     </SafeAreaView>
   );
