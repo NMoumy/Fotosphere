@@ -27,10 +27,10 @@ export default function Post({ post }) {
       <View style={styles.entetePost}>
         <View style={styles.infoProfil}>
           <Image
-            source={{ uri: post.photoDeProfil }}
+            source={{ uri: post.photoProfil }}
             style={{ width: 40, height: 40, borderRadius: 50, borderWidth: 1, borderColor: "#D9D9D9" }}
           />
-          <Text style={{ fontFamily: "Inter-Bold", color: "#222222" }}>{post.user}</Text>
+          <Text style={{ fontFamily: "Inter-Bold", color: "#222222" }}>{post.pseudo}</Text>
         </View>
         <Text style={{ color: "#7C8089", fontFamily: "Inter-Regular" }}>{post.date}</Text>
       </View>

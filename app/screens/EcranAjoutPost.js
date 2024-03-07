@@ -1,13 +1,11 @@
 import { View, Text, Button, SafeAreaView, StyleSheet, StatusBar, Platform } from "react-native";
 import React from "react";
-import { genererUtilisateur } from "../services/firebase/generateurUtilisateurs";
 import AjoutPost from "../components/nouveauPost/AjoutPost";
 import EnteteRetour from "../components/nouveauPost/EnteteRetour";
 
-export default function EcranAjoutPost({navigation}) {
+export default function EcranAjoutPost({ navigation }) {
   return (
     <SafeAreaView style={styles.conteneur}>
-      {/* <Button onPress={genererUtilisateur} title="Ajouter un post" /> */}
       <EnteteRetour navigation={navigation} titre="Nouvelle publication" />
       <AjoutPost />
     </SafeAreaView>

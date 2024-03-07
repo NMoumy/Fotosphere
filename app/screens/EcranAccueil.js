@@ -2,16 +2,28 @@ import { SafeAreaView, StyleSheet, Text, View, Platform, StatusBar, ScrollView, 
 import Entete from "../components/main/Entete";
 import CategoriePhoto from "../components/main/CategoriePhoto";
 import Post from "../components/main/Post";
-import { POSTS } from "../services/firebase/data/Posts";
 import NavBar, { navBarIcons } from "../components/main/NavBar";
+import obtenirTousLesPosts from "../services/firebase/fonctionData";
+import { useEffect, useState } from "react";
 
 export default function EcranAccueil() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const recupererPosts = async () => {
+      const donnees = await obtenirTousLesPosts();
+      setPosts(donnees);
+    };
+
+    recupererPosts();
+  }, []);
+
   return (
     <SafeAreaView style={styles.conteneur}>
       <Entete />
       <CategoriePhoto />
       <ScrollView style={styles.conteneurPosts}>
-        {POSTS.map((post, index) => (
+      {posts.map((post, index) => (
           <Post key={index} post={post} />
         ))}
       </ScrollView>
@@ -33,4 +45,3 @@ const styles = StyleSheet.create({
     // paddingVertical: 10,
   },
 });
-

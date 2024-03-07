@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Button, Image, Platform, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import { creerPost } from "../../services/firebase/fonctionData";
+import { useNavigation } from "@react-navigation/native";
 
 export default function AjoutPost() {
   const [image, setImage] = useState(null);
   const [description, setDescription] = useState("");
 
-  const soumettre = () => {
-    console.log(description);
-    // Ici, vous pouvez gérer la soumission du formulaire
+  const navigation = useNavigation(); // Ajoutez cette ligne
+
+  const soumettre = async () => {
+    try {
+      navigation.navigate("Profil");
+      const userId = "4DpcQnDPYRUuRrPGRhf7KGuOGh03"; // Remplacez par l'ID de l'utilisateur actuel
+      const postId = await creerPost(userId, image, description);
+      console.log("Post créé avec l'ID :", postId);
+    } catch (error) {
+      console.error("Erreur lors de la création du post :", error);
+    }
   };
 
   useEffect(() => {
