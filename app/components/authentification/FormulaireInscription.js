@@ -12,9 +12,10 @@ export default function FormulaireInscription() {
 
   const gererInscription = async () => {
     try {
-      await creerUtilisateur(courriel, motDePasse);
+      const infosUtilisateur = { pseudo };
+      await creerUtilisateur(courriel, motDePasse, infosUtilisateur);
       // L'utilisateur a été créé avec succès, naviguer vers l'écran modifProfil
-      navigation.navigate("ModifProfil");
+      navigation.navigate("Accueil");
     } catch (error) {
       // Une erreur s'est produite lors de la création de l'utilisateur
       console.error("Erreur lors de l'inscription : ", error);
@@ -36,7 +37,7 @@ export default function FormulaireInscription() {
         <Text style={styles.texteBouton}>S'inscrire</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.boutonConnexion}>
+      <TouchableOpacity style={styles.boutonConnexion} onPress={() => navigation.navigate("Connexion")}>
         <Text>Déjà un compte ? Connecte-toi</Text>
       </TouchableOpacity>
     </View>

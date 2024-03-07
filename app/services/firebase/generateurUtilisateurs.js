@@ -6,7 +6,7 @@ const genererUtilisateur = async () => {
   try {
     const pseudo = generateRandomPseudo(); // Générer un pseudo aléatoire
     const email = generateRandomEmail(); // Générer un email aléatoire
-    const password = generateRandomPassword(); // Générer un mot de passe aléatoire
+    const password = "123321"; // Mot de passe par défaut
 
     // Créer l'utilisateur dans Firebase Auth
     const user = await creerUtilisateur(email, password);
@@ -16,8 +16,8 @@ const genererUtilisateur = async () => {
       pseudo: pseudo,
       email: email,
       bio: generateRandomBio(), // Générer une biographie aléatoire
-      photoProfil: "", // Laisser vide pour l'instant
-      photoCouverture: "", // Laisser vide pour l'instant
+      photoProfil: generateRandomProfilImage(), // Photo de profil par défaut
+      photoCouverture: generateRandomCouvertureImage(), // Photo de couverture par défaut
       abonnements: [], // Pas d'abonnements pour l'instant
       abonnes: [], // Pas d'abonnés pour l'instant
     });
@@ -70,6 +70,28 @@ const generateRandomDescription = () => {
   return descriptions[Math.floor(Math.random() * descriptions.length)];
 };
 
+// Fonction pour générer une image de profil aléatoire
+const generateRandomProfilImage = () => {
+  const profilImages = [
+    "url_image_profil_1",
+    "url_image_profil_2",
+    "url_image_profil_3",
+    // Ajoutez ici d'autres URLs d'images de profil par défaut
+  ];
+  return profilImages[Math.floor(Math.random() * profilImages.length)];
+};
+
+// Fonction pour générer une image de couverture aléatoire
+const generateRandomCouvertureImage = () => {
+  const couvertureImages = [
+    "url_image_couverture_1",
+    "url_image_couverture_2",
+    "url_image_couverture_3",
+    // Ajoutez ici d'autres URLs d'images de couverture par défaut
+  ];
+  return couvertureImages[Math.floor(Math.random() * couvertureImages.length)];
+};
+
 // Fonction pour générer un pseudo aléatoire (à personnaliser selon vos besoins)
 const generateRandomPseudo = () => {
   const adjectifs = ["Cool", "Rapide", "Intelligent", "Drôle", "Super", "Mystérieux"];
@@ -84,11 +106,6 @@ const generateRandomEmail = () => {
   const domains = ["gmail.com", "yahoo.com", "outlook.com", "hotmail.com"];
   const randomDomain = domains[Math.floor(Math.random() * domains.length)];
   return `${generateRandomString(8)}@${randomDomain}`;
-};
-
-// Fonction pour générer un mot de passe aléatoire (à personnaliser selon vos besoins)
-const generateRandomPassword = () => {
-  return generateRandomString(10);
 };
 
 // Fonction pour générer une biographie aléatoire (à personnaliser selon vos besoins)

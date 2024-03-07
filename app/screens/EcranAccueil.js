@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View, Platform, StatusBar, ScrollView } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View, Platform, StatusBar, ScrollView, Button } from "react-native";
 import Entete from "../components/main/Entete";
 import CategoriePhoto from "../components/main/CategoriePhoto";
 import Post from "../components/main/Post";
@@ -33,3 +33,4 @@ const styles = StyleSheet.create({
     // paddingVertical: 10,
   },
 });
+

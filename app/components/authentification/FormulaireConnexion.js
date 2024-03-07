@@ -1,12 +1,22 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
+import { connecterUtilisateur } from "../../services/firebase/auth"; // Import the function
 
 export default function FormulaireConnexion() {
   const [courriel, setCourriel] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
 
-  const gererConnexion = () => {
-    // Gérer la connexion ici
+  const navigation = useNavigation();
+
+  const gererConnexion = async () => {
+    try {
+      const user = await connecterUtilisateur(courriel, motDePasse);
+      console.log("User connecter avec succès");
+      navigation.navigate("Accueil");
+    } catch (error) {
+      console.error("Error pendant la connexion: ", error);
+    }
   };
 
   return (
@@ -24,7 +34,7 @@ export default function FormulaireConnexion() {
         <Text style={styles.texteBouton}>Se connecter</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.boutonInscription}>
+      <TouchableOpacity style={styles.boutonInscription} onPress={() => navigation.navigate("Inscription")}>
         <Text>Nouveau utilisateur ? Inscrit toi</Text>
       </TouchableOpacity>
     </View>
@@ -40,6 +50,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     paddingVertical: 10,
+    shadowColor: "black",
+    elevation: 20,
   },
   titreConnexion: {
     fontFamily: "Inter-Bold",

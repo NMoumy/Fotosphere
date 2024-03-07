@@ -2,7 +2,6 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { getStorage } from "firebase/storage";
-//import * as SecureStore from "expo-secure-store"; // Importer SecureStore depuis Expo
 import firebaseConfig from "./firebaseConfig";
 
 // Initialiser l'application Firebase
