@@ -1,25 +1,6 @@
 import { firestore, storage } from "./init";
-import { getFirestore, addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc } from "firebase/firestore";
+import { getFirestore, addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, orderBy } from "firebase/firestore";
 import { getDownloadURL, ref, uploadString, getStorage, uploadBytes } from "firebase/storage";
-
-// Fonction pour obtenir tous les posts de tous les utilisateurs
-export const obtenirTousLesPosts = async () => {
-  try {
-    const utilisateursSnapshot = await getDocs(collection(firestore, "utilisateurs"));
-    let tousLesPosts = [];
-
-    for (const utilisateur of utilisateursSnapshot.docs) {
-      const postsSnapshot = await getDocs(query(collection(utilisateur.ref, "posts"), orderBy("date", "desc")));
-      const posts = postsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      tousLesPosts = tousLesPosts.concat(posts);
-    }
-
-    return tousLesPosts;
-  } catch (error) {
-    console.error("Erreur lors de la récupération des posts :", error);
-    throw error;
-  }
-};
 
 // Fonction pour créer un nouveau post
 export const creerPost = async (userId, image, description) => {
@@ -52,6 +33,27 @@ export const creerPost = async (userId, image, description) => {
     throw error;
   }
 };
+
+// Fonction pour obtenir tous les posts de tous les utilisateurs
+export const obtenirTousLesPosts = async () => {
+  try {
+    const firestore = getFirestore();
+    const utilisateursSnapshot = await getDocs(collection(firestore, "utilisateurs"));
+    let tousLesPosts = [];
+
+    for (const utilisateur of utilisateursSnapshot.docs) {
+      const postsSnapshot = await getDocs(query(collection(firestore, "utilisateurs", utilisateur.id, "posts"), orderBy("date", "desc")));
+      const posts = postsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      tousLesPosts = tousLesPosts.concat(posts);
+    }
+
+    return tousLesPosts;
+  } catch (error) {
+    console.error("Erreur lors de la récupération des posts :", error);
+    throw error;
+  }
+};
+
 
 export const uploadImage = async (userId, image) => {
   try {

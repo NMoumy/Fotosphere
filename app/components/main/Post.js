@@ -43,25 +43,23 @@ export default function Post({ post }) {
         <Text style={{ fontFamily: "Inter-Regular", color: "#222222" }}>{post.description}</Text>
 
         <View style={styles.conteneurIcons}>
-            <TouchableOpacity onPress={basculerLike} style={styles.conteneurLikes}>
-              <Image
-                source={
-                  activeLike
-                    ? require("../../assets/images/coeur-rempli.png")
-                    : require("../../assets/images/coeur.png")
-                }
-                style={{ width: 20, height: 20, resizeMode: "contain" }}
-              />
-              <Text style={{ color: "#7C8089" }}>{nombreLikes}</Text>
-            </TouchableOpacity>
+          <TouchableOpacity onPress={basculerLike} style={styles.conteneurLikes}>
+            <Image
+              source={
+                activeLike ? require("../../assets/images/coeur-rempli.png") : require("../../assets/images/coeur.png")
+              }
+              style={{ width: 20, height: 20, resizeMode: "contain" }}
+            />
+            <Text style={{ color: "#7C8089" }}>{nombreLikes}</Text>
+          </TouchableOpacity>
 
-            <TouchableOpacity onPress={ouvrirCommentaires} style={styles.conteneurCommentaires}>
-              <Image
-                source={require("../../assets/images/commentaire.png")}
-                style={{ width: 20, height: 20, resizeMode: "contain" }}
-              />
-              <Text style={{ color: "#7C8089" }}>{post.commentaires.length}</Text>
-            </TouchableOpacity>
+          <TouchableOpacity onPress={ouvrirCommentaires} style={styles.conteneurCommentaires}>
+            <Image
+              source={require("../../assets/images/commentaire.png")}
+              style={{ width: 20, height: 20, resizeMode: "contain" }}
+            />
+            <Text style={{ color: "#7C8089" }}>{post.commentaires ? post.commentaires.length : 0}</Text>
+          </TouchableOpacity>
         </View>
 
         <Modal visible={modalVisible} transparent={true}>

@@ -3,7 +3,7 @@ import Entete from "../components/main/Entete";
 import CategoriePhoto from "../components/main/CategoriePhoto";
 import Post from "../components/main/Post";
 import NavBar, { navBarIcons } from "../components/main/NavBar";
-import obtenirTousLesPosts from "../services/firebase/fonctionData";
+import { obtenirTousLesPosts } from "../services/firebase/fonctionData"; // Assurez-vous que le chemin est correct
 import { useEffect, useState } from "react";
 
 export default function EcranAccueil() {
@@ -23,7 +23,7 @@ export default function EcranAccueil() {
       <Entete />
       <CategoriePhoto />
       <ScrollView style={styles.conteneurPosts}>
-      {posts.map((post, index) => (
+        {posts.map((post, index) => (
           <Post key={index} post={post} />
         ))}
       </ScrollView>
