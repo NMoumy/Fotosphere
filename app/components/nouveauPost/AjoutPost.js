@@ -3,6 +3,7 @@ import { View, Text, Button, Image, Platform, TouchableOpacity, StyleSheet, Text
 import * as ImagePicker from "expo-image-picker";
 import { creerPost } from "../../services/firebase/fonctionData";
 import { useNavigation } from "@react-navigation/native";
+import { auth } from "../../services/firebase/init";
 
 export default function AjoutPost() {
   const [image, setImage] = useState(null);
@@ -12,10 +13,16 @@ export default function AjoutPost() {
 
   const soumettre = async () => {
     try {
-      navigation.navigate("Profil");
-      const userId = "4DpcQnDPYRUuRrPGRhf7KGuOGh03"; // Remplacez par l'ID de l'utilisateur actuel
+      const user = auth.currentUser;
+      if (!user) {
+        throw new Error("Aucun utilisateur n'est actuellement connecté");
+      }
+
+      const userId = user.uid;
       const postId = await creerPost(userId, image, description);
       console.log("Post créé avec l'ID :", postId);
+
+      navigation.navigate("Profil");
     } catch (error) {
       console.error("Erreur lors de la création du post :", error);
     }

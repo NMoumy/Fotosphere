@@ -1,11 +1,28 @@
 import { firestore, storage } from "./init";
-import { getFirestore, addDoc, collection, deleteDoc, doc, getDoc, getDocs, query, setDoc, orderBy } from "firebase/firestore";
+import {
+  getFirestore,
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  setDoc,
+  orderBy,
+  onSnapshot,
+} from "firebase/firestore";
 import { getDownloadURL, ref, uploadString, getStorage, uploadBytes } from "firebase/storage";
 
 // Fonction pour créer un nouveau post
 export const creerPost = async (userId, image, description) => {
   try {
     const firestore = getFirestore();
+
+    // Récupérer les informations de l'utilisateur
+    const userDocRef = doc(firestore, "utilisateurs", userId);
+    const userDocSnapshot = await getDoc(userDocRef);
+    const { pseudo, photoProfil } = userDocSnapshot.data();
 
     // Utiliser la fonction uploadImage pour télécharger l'image
     const imageUrl = await uploadImage(userId, image);
@@ -15,6 +32,8 @@ export const creerPost = async (userId, image, description) => {
       likes: [],
       description,
       date: new Date().toISOString(),
+      pseudo,
+      photoProfil,
     };
 
     // Ajouter le post à la collection globale de posts
@@ -35,25 +54,22 @@ export const creerPost = async (userId, image, description) => {
 };
 
 // Fonction pour obtenir tous les posts de tous les utilisateurs
-export const obtenirTousLesPosts = async () => {
-  try {
-    const firestore = getFirestore();
-    const utilisateursSnapshot = await getDocs(collection(firestore, "utilisateurs"));
-    let tousLesPosts = [];
+export const obtenirTousLesPosts = (rappel) => {
+  const firestore = getFirestore();
+  const requetePosts = query(collection(firestore, "posts"), orderBy("date", "desc"));
 
-    for (const utilisateur of utilisateursSnapshot.docs) {
-      const postsSnapshot = await getDocs(query(collection(firestore, "utilisateurs", utilisateur.id, "posts"), orderBy("date", "desc")));
-      const posts = postsSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-      tousLesPosts = tousLesPosts.concat(posts);
-    }
+  const desabonner = onSnapshot(requetePosts, (instantane) => {
+    const tousLesPosts = instantane.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    rappel(tousLesPosts);
+  });
 
-    return tousLesPosts;
-  } catch (error) {
-    console.error("Erreur lors de la récupération des posts :", error);
-    throw error;
+  // Assurez-vous que desabonner est une fonction
+  if (typeof desabonner !== "function") {
+    throw new Error("desabonner doit être une fonction");
   }
-};
 
+  return desabonner;
+};
 
 export const uploadImage = async (userId, image) => {
   try {

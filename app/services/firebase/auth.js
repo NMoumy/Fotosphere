@@ -11,9 +11,17 @@ async function creerUtilisateur(email, password, infosUtilisateur) {
     // Récupérer l'ID de l'utilisateur créé
     const userId = user.uid;
 
-    // Créer un document pour l'utilisateur dans Firestore avec les informations supplémentaires
+    // Infos par défaut pour un nouvel utilisateur
+    const infosParDefaut = {
+      abonnes: [],
+      abonnements: [],
+      bio: "",
+      ...infosUtilisateur, // Permet de remplacer les valeurs par défaut avec celles fournies
+    };
+
+    // Créer un document pour l'utilisateur dans Firestore avec les informations par défaut
     const userDocRef = doc(firestore, "utilisateurs", userId);
-    await setDoc(userDocRef, infosUtilisateur);
+    await setDoc(userDocRef, infosParDefaut);
 
     return user;
   } catch (error) {

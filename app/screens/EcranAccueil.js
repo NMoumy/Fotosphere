@@ -10,12 +10,12 @@ export default function EcranAccueil() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const recupererPosts = async () => {
-      const donnees = await obtenirTousLesPosts();
+    const desabonner = obtenirTousLesPosts((donnees) => {
       setPosts(donnees);
-    };
+    });
 
-    recupererPosts();
+    // Nettoyer l'effet en se désabonner de l'écouteur de snapshot lorsque le composant est démonté
+    return () => desabonner();
   }, []);
 
   return (

@@ -12,7 +12,16 @@ export default function FormulaireInscription() {
 
   const gererInscription = async () => {
     try {
-      const infosUtilisateur = { pseudo };
+      const infosUtilisateur = {
+        pseudo,
+        photoProfil:
+          "https://firebasestorage.googleapis.com/v0/b/fotosphere.appspot.com/o/images%2FDefaut%2Fprofil-defaut.jpg?alt=media&token=540934c0-97c6-4b0e-8d25-ec6eeabbe3eb",
+        photoCouverture:
+          "https://firebasestorage.googleapis.com/v0/b/fotosphere.appspot.com/o/images%2FDefaut%2Fcouverture-defaut.jpg?alt=media&token=5c48ad39-07a2-4c7a-881b-2c59f7c6a9c3",
+        abonnes: [],
+        abonnements: [],
+        bio: "",
+      };
       await creerUtilisateur(courriel, motDePasse, infosUtilisateur);
       // L'utilisateur a été créé avec succès, naviguer vers l'écran modifProfil
       navigation.navigate("Accueil");
@@ -21,6 +30,7 @@ export default function FormulaireInscription() {
       console.error("Erreur lors de l'inscription : ", error);
     }
   };
+
   return (
     <View style={styles.conteneur}>
       <Text style={styles.titreInscription}>Inscription</Text>

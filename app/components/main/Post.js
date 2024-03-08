@@ -27,7 +27,11 @@ export default function Post({ post }) {
       <View style={styles.entetePost}>
         <View style={styles.infoProfil}>
           <Image
-            source={{ uri: post.photoProfil }}
+            source={
+              typeof post.photoProfil === "string"
+                ? { uri: post.photoProfil }
+                : require("../../assets/images/image-defaut.jpg")
+            }
             style={{ width: 40, height: 40, borderRadius: 50, borderWidth: 1, borderColor: "#D9D9D9" }}
           />
           <Text style={{ fontFamily: "Inter-Bold", color: "#222222" }}>{post.pseudo}</Text>
@@ -36,7 +40,12 @@ export default function Post({ post }) {
       </View>
 
       <View style={styles.conteneurMedia}>
-        <Image source={{ uri: post.imageUrl }} style={{ width: "100%", height: "100%", resizeMode: "cover" }} />
+        <Image
+          source={
+            typeof post.imageUrl === "string" ? { uri: post.imageUrl } : require("../../assets/images/image-defaut.jpg")
+          }
+          style={{ width: "100%", height: "100%", resizeMode: "cover" }}
+        />
       </View>
 
       <View style={styles.infoPost}>
