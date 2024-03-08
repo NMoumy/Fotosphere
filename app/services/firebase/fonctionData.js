@@ -1,4 +1,5 @@
-import { firestore, storage } from "./init";
+// import { firestore, storage } from "./init";
+import { getDownloadURL, ref, uploadString, getStorage, uploadBytes } from "firebase/storage";
 import {
   getFirestore,
   addDoc,
@@ -11,8 +12,8 @@ import {
   setDoc,
   orderBy,
   onSnapshot,
+  serverTimestamp,
 } from "firebase/firestore";
-import { getDownloadURL, ref, uploadString, getStorage, uploadBytes } from "firebase/storage";
 
 // Fonction pour créer un nouveau post
 export const creerPost = async (userId, image, description) => {
@@ -31,7 +32,7 @@ export const creerPost = async (userId, image, description) => {
       imageUrl,
       likes: [],
       description,
-      date: new Date().toISOString(),
+      date: serverTimestamp(),
       pseudo,
       photoProfil,
     };

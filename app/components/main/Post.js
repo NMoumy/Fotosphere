@@ -36,7 +36,9 @@ export default function Post({ post }) {
           />
           <Text style={{ fontFamily: "Inter-Bold", color: "#222222" }}>{post.pseudo}</Text>
         </View>
-        <Text style={{ color: "#7C8089", fontFamily: "Inter-Regular" }}>{post.date}</Text>
+        <Text style={{ color: "#7C8089", fontFamily: "Inter-Regular" }}>
+          {post.date ? new Date(post.date.seconds * 1000).toLocaleDateString("fr-CA") : 'Loading...'}
+        </Text>
       </View>
 
       <View style={styles.conteneurMedia}>
