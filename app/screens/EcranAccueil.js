@@ -10,9 +10,22 @@ export default function EcranAccueil() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    const desabonner = obtenirTousLesPosts((donnees) => {
-      setPosts(donnees);
-    });
+    const desabonner = obtenirTousLesPosts(
+      (tousLesPosts) => {
+        setPosts(tousLesPosts);
+      },
+      (postId, utilisateurMisAJour) => {
+        setPosts((postsActuels) => {
+          const index = postsActuels.findIndex((post) => post.id === postId);
+          if (index !== -1) {
+            const nouveauPost = { ...postsActuels[index], utilisateur: utilisateurMisAJour };
+            return [...postsActuels.slice(0, index), nouveauPost, ...postsActuels.slice(index + 1)];
+          } else {
+            return postsActuels;
+          }
+        });
+      }
+    );
 
     // Nettoyer l'effet en se désabonner de l'écouteur de snapshot lorsque le composant est démonté
     return () => desabonner();

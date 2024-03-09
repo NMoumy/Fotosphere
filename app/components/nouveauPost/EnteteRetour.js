@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
   conteneur: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 5,
+    paddingVertical: 1,
+    // backgroundColor: "#EA5D55",
     backgroundColor: "white",
   },
   btnRetour: {
@@ -30,5 +31,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     width: "100%",
     position: "absolute",
+    color: "#222222",
   },
 });

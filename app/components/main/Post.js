@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import Commentaires from "./Commentaires";
 
 export default function Post({ post }) {
+
   const [activeLike, setActiveLike] = useState(false);
   const [nombreLikes, setNombreLikes] = useState(post.likes);
   const [modalVisible, setModalVisible] = useState(false);
+
   const basculerLike = () => {
     setActiveLike(!activeLike);
     if (!activeLike) {
@@ -14,6 +16,7 @@ export default function Post({ post }) {
       setNombreLikes(nombreLikes - 1);
     }
   };
+
   const ouvrirCommentaires = () => {
     setModalVisible(true);
   };
@@ -28,16 +31,16 @@ export default function Post({ post }) {
         <View style={styles.infoProfil}>
           <Image
             source={
-              typeof post.photoProfil === "string"
-                ? { uri: post.photoProfil }
+              typeof post.utilisateur.photoProfil === "string"
+                ? { uri: post.utilisateur.photoProfil }
                 : require("../../assets/images/image-defaut.jpg")
             }
             style={{ width: 40, height: 40, borderRadius: 50, borderWidth: 1, borderColor: "#D9D9D9" }}
           />
-          <Text style={{ fontFamily: "Inter-Bold", color: "#222222" }}>{post.pseudo}</Text>
+          <Text style={{ fontFamily: "Inter-Bold", color: "#222222" }}>{post.utilisateur.pseudo}</Text>
         </View>
         <Text style={{ color: "#7C8089", fontFamily: "Inter-Regular" }}>
-          {post.date ? new Date(post.date.seconds * 1000).toLocaleDateString("fr-CA") : 'Loading...'}
+          {post.date ? new Date(post.date.seconds * 1000).toLocaleDateString("fr-CA") : "Loading..."}
         </Text>
       </View>
 

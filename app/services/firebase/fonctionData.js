@@ -21,11 +21,6 @@ import {
 // Fonction pour créer un nouveau post
 export const creerPost = async (userId, image, description) => {
   try {
-    // Récupérer les informations de l'utilisateur
-    const userDocRef = doc(firestore, "utilisateurs", userId);
-    const userDocSnapshot = await getDoc(userDocRef);
-    const { pseudo, photoProfil } = userDocSnapshot.data();
-
     // Utiliser la fonction uploadImage pour télécharger l'image
     const imageUrl = await uploadImage(userId, image);
 
@@ -34,8 +29,7 @@ export const creerPost = async (userId, image, description) => {
       likes: [],
       description,
       date: serverTimestamp(),
-      pseudo,
-      photoProfil,
+      userId, // Stocker l'ID de l'utilisateur au lieu du pseudo et de la photo de profil
     };
 
     // Ajouter le post à la collection globale de posts
@@ -55,23 +49,48 @@ export const creerPost = async (userId, image, description) => {
   }
 };
 
-// Fonction pour obtenir tous les posts de tous les utilisateurs
-export const obtenirTousLesPosts = (rappel) => {
+// Fonction pour obtenir tous les posts
+export const obtenirTousLesPosts = (rappelPost, rappelUtilisateur) => {
   const requetePosts = query(collection(firestore, "posts"), orderBy("date", "desc"));
+  const desabonnementsUtilisateurs = [];
 
-  const desabonner = onSnapshot(requetePosts, (instantane) => {
-    const tousLesPosts = instantane.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    rappel(tousLesPosts);
+  const desabonner = onSnapshot(requetePosts, async (instantane) => {
+    const tousLesPosts = [];
+    for (let docSnapshot of instantane.docs) {
+      const post = { id: docSnapshot.id, ...docSnapshot.data() };
+      const userRef = doc(firestore, "utilisateurs", post.userId);
+      const userDoc = await getDoc(userRef);
+
+      if (userDoc.exists()) {
+        const utilisateur = userDoc.data();
+        tousLesPosts.push({ ...post, utilisateur });
+      }
+    }
+
+    rappelPost(tousLesPosts);
+
+    // Ajouter un écouteur pour les modifications de chaque utilisateur
+    tousLesPosts.forEach((post) => {
+      const userRef = doc(firestore, "utilisateurs", post.userId);
+      const desabonnementUtilisateur = onSnapshot(userRef, (userDoc) => {
+        if (userDoc.exists()) {
+          const utilisateurMisAJour = userDoc.data();
+          rappelUtilisateur(post.id, utilisateurMisAJour);
+        }
+      });
+
+      desabonnementsUtilisateurs.push(desabonnementUtilisateur);
+    });
   });
 
-  // Assurez-vous que desabonner est une fonction
-  if (typeof desabonner !== "function") {
-    throw new Error("desabonner doit être une fonction");
-  }
-
-  return desabonner;
+  // Retourner une fonction pour se désabonner de tous les écouteurs
+  return () => {
+    desabonner();
+    desabonnementsUtilisateurs.forEach((desabonnement) => desabonnement());
+  };
 };
 
+// Fonction pour televerser une image
 export const uploadImage = async (userId, image) => {
   try {
     // Télécharger l'image dans le stockage Firebase

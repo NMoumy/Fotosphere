@@ -15,9 +15,9 @@ export default function FormulaireInscription() {
       const infosUtilisateur = {
         pseudo,
         photoProfil:
-          "https://firebasestorage.googleapis.com/v0/b/fotosphere.appspot.com/o/images%2FDefaut%2Fprofil-defaut.jpg?alt=media&token=540934c0-97c6-4b0e-8d25-ec6eeabbe3eb",
+          "https://firebasestorage.googleapis.com/v0/b/fotosphere.appspot.com/o/images%2Fdefaut%2Fprofil-defaut.png?alt=media&token=87ac7df8-fe51-4338-99ef-66b35d9b03f8",
         photoCouverture:
-          "https://firebasestorage.googleapis.com/v0/b/fotosphere.appspot.com/o/images%2FDefaut%2Fcouverture-defaut.jpg?alt=media&token=5c48ad39-07a2-4c7a-881b-2c59f7c6a9c3",
+          "https://firebasestorage.googleapis.com/v0/b/fotosphere.appspot.com/o/images%2Fdefaut%2Fcouverture-defaut.png?alt=media&token=3919891e-18ea-42c7-b214-041203309091",
         abonnes: [],
         abonnements: [],
         bio: "Ajouter une bio",

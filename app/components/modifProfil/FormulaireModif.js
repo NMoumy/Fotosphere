@@ -16,7 +16,6 @@ export default function FormulaireModif() {
     const fetchUserInfos = async () => {
       try {
         const user = await getInfosUtilisateur();
-        
         setPhotoProfil(user.photoProfil);
         setPhotoCouverture(user.photoCouverture);
         setPseudo(user.pseudo);
@@ -87,7 +86,7 @@ export default function FormulaireModif() {
         onChangeText={setBio}
       />
       <View style={styles.conteneurBoutons}>
-        <TouchableOpacity style={styles.boutonAnnuler} onPress={() => console.log("Annuler")}>
+        <TouchableOpacity style={styles.boutonAnnuler} onPress={() => navigation.navigate("Profil")}>
           <Text style={styles.texteBoutonAnnuler}>Annuler</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.boutonConfirmer} onPress={confirmerModifications}>
