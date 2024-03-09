@@ -6,6 +6,7 @@ import firebaseConfig from "./firebaseConfig";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
 
+
 // Initialiser l'application Firebase
 const app = initializeApp(firebaseConfig);
 

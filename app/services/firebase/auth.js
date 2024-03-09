@@ -1,6 +1,6 @@
 import { auth, firestore } from "./init";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 // Fonction pour créer un nouvel utilisateur avec email, mot de passe et informations supplémentaires
 async function creerUtilisateur(email, password, infosUtilisateur) {
@@ -52,5 +52,23 @@ async function deconnecterUtilisateur() {
     throw error;
   }
 }
+
+// Fonction pour récupérer les informations de l'utilisateur à partir de Firestore
+// async function getInfosUtilisateur(userId) {
+//   try {
+//     const userDocRef = doc(firestore, "utilisateurs", userId);
+//     const docSnap = await getDoc(userDocRef);
+
+//     if (docSnap.exists()) {
+//       return docSnap.data();
+//     } else {
+//       console.log("No such document!");
+//       return null;
+//     }
+//   } catch (error) {
+//     console.error("Erreur lors de la récupération des informations de l'utilisateur :", error);
+//     throw error;
+//   }
+// }
 
 export { creerUtilisateur, connecterUtilisateur, deconnecterUtilisateur };

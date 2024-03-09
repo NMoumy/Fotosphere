@@ -8,18 +8,12 @@ export default function PostProfil() {
   const images = [
     "https://images.pexels.com/photos/17875968/pexels-photo-17875968/free-photo-of-etre-assis-zoo-tropical-nourrir.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
     "https://images.pexels.com/photos/18175568/pexels-photo-18175568/free-photo-of-oiseau-foret-jardin-hiver.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
-    "https://images.pexels.com/photos/18142234/pexels-photo-18142234/free-photo-of-chevaux-troupeau-paturage-photographie-animaliere.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
-    "https://images.pexels.com/photos/18004061/pexels-photo-18004061/free-photo-of-scott-sur-la-plage.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
-    "https://images.pexels.com/photos/17875968/pexels-photo-17875968/free-photo-of-etre-assis-zoo-tropical-nourrir.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
-    "https://images.pexels.com/photos/18175568/pexels-photo-18175568/free-photo-of-oiseau-foret-jardin-hiver.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
-    "https://images.pexels.com/photos/18142234/pexels-photo-18142234/free-photo-of-chevaux-troupeau-paturage-photographie-animaliere.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
-    "https://images.pexels.com/photos/18004061/pexels-photo-18004061/free-photo-of-scott-sur-la-plage.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
   ];
 
   const gererClick = (url) => {
     console.log("Image pressée :", url);
   };
-
+ 
   const selectionnerCategorie = (index) => {
     setCategorieSelectionnee(index);
     Animated.timing(positionBarre, {
@@ -62,7 +56,6 @@ export default function PostProfil() {
           numColumns={3}
         />
       </View>
-
     </View>
   );
 }

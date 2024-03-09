@@ -15,6 +15,7 @@ export default function EcranModifProfil({navigation}) {
 const styles = StyleSheet.create({
   conteneur: {
     flex: 1,
+    backgroundColor: "white",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 });

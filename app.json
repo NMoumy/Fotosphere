@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Fotosphere",
-    "slug": "Fotosphere",
+    "slug": "fotosphere",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/images/icon.png",
@@ -30,6 +30,15 @@
       "expo-font",
       "expo-secure-store",
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "f344800a-2f75-401e-8cc3-95abebb1144e"
+      }
+    },
+    "owner": "nmoumy"
   }
 }

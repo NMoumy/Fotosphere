@@ -16,13 +16,15 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 
+// Pour la police d'écriture
 SplashScreen.preventAutoHideAsync();
 
+// Pour la navigation
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   // Changement de la couleur de la barre de navigation
-  NavigationBar.setBackgroundColorAsync("transparent");
+  NavigationBar.setBackgroundColorAsync("white");
 
   // Chargement des polices
   const [fontsLoaded, fontError] = useFonts({

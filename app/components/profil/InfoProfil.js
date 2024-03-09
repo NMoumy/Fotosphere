@@ -1,51 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from "react-native";
+import { getInfosUtilisateur } from "../../services/firebase/fonctionData";
+import { useNavigation } from "@react-navigation/native";
 
 export default function InfoProfil() {
-  const nomUtilisateur = "mododo8990.";
-  const bio = "Élaboré dans le respect de l'environnement et des animaux.🍱";
-  const nbAbonnes = 100;
-  const nbAbonnements = 200;
-  const nbPublications = 50;
+  const navigation = useNavigation(); // Ajoutez cette ligne
 
-  const suivreUtilisateur = () => {
-    // Logique pour suivre l'utilisateur
-  };
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    getInfosUtilisateur().then((infosUtilisateur) => {
+      setUser(infosUtilisateur);
+    });
+  }, []);
 
   return (
     <View style={styles.conteneur}>
       <View style={styles.conteneurImageUtil}>
-        <Image
-          source={{
-            uri: "https://images.pexels.com/photos/18644057/pexels-photo-18644057/free-photo-of-prairie-rural-mouton-troupeau.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
-          }}
-          style={styles.imageCouverture}
-        />
-        <Image
-          source={{
-            uri: "https://images.pexels.com/photos/18189033/pexels-photo-18189033/free-photo-of-animal-mignon-herbe-fourrure.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
-          }}
-          style={styles.imageProfil}
-        />
+        <Image source={{ uri: user?.photoCouverture }} style={styles.imageCouverture} />
+        <Image source={{ uri: user?.photoProfil }} style={styles.imageProfil} />
       </View>
-      <Text style={styles.textNom}>{nomUtilisateur}</Text>
-      <Text style={styles.textbio}>{bio}</Text>
+      <Text style={styles.textNom}>{user?.pseudo}</Text>
+      <Text style={styles.textbio}>{user?.bio}</Text>
       <View style={styles.conteneurStatus}>
         <View style={styles.infoStatus}>
-          <Text style={{ fontFamily: "Inter-SemiBold" }}>{nbPublications}</Text>
+          <Text style={{ fontFamily: "Inter-SemiBold", fontSize: 16 }}>126</Text>
           <Text style={{ fontFamily: "Inter-Regular" }}>Publications</Text>
         </View>
         <View style={styles.infoStatus}>
-          <Text style={{ fontFamily: "Inter-SemiBold" }}>{nbAbonnes}</Text>
+          <Text style={{ fontFamily: "Inter-SemiBold", fontSize: 16 }}>{user?.abonnes.length}</Text>
           <Text style={{ fontFamily: "Inter-Regular" }}>Abonnés</Text>
         </View>
         <View style={styles.infoStatus}>
-          <Text style={{ fontFamily: "Inter-SemiBold" }}>{nbAbonnements}</Text>
+          <Text style={{ fontFamily: "Inter-SemiBold", fontSize: 16 }}>{user?.abonnements.length}</Text>
           <Text style={{ fontFamily: "Inter-Regular" }}>Abonnements</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.bouton} onPress={suivreUtilisateur}>
-        <Text style={styles.texteBouton}>Suivre</Text>
+      <TouchableOpacity style={styles.bouton} onPress={() => navigation.navigate("ModifProfil")}>
+        <Text style={styles.texteBouton}>Modifier le profil</Text>
       </TouchableOpacity>
     </View>
   );

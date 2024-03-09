@@ -1,5 +1,6 @@
 // import { firestore, storage } from "./init";
 import { getDownloadURL, ref, uploadString, getStorage, uploadBytes } from "firebase/storage";
+import { auth, firestore } from "./init";
 import {
   getFirestore,
   addDoc,
@@ -13,6 +14,8 @@ import {
   orderBy,
   onSnapshot,
   serverTimestamp,
+  Firestore,
+  where,
 } from "firebase/firestore";
 
 // Fonction pour créer un nouveau post
@@ -95,156 +98,36 @@ export const uploadImage = async (userId, image) => {
   }
 };
 
-// // Fonction pour mettre à jour le profil d'un utilisateur
-// export const mettreAJourProfilUtilisateur = async (email, pseudo, bio, photoProfil, photoCouverture) => {
+export const getInfosUtilisateur = async () => {
+  try {
+    const user = auth.currentUser;
+    if (!user) throw new Error("Aucun utilisateur connecté");
+
+    const userRef = doc(firestore, "utilisateurs", user.uid);
+    const userDoc = await getDoc(userRef);
+
+    if (userDoc.exists()) {
+      return userDoc.data();
+    } else {
+      throw new Error("Aucun document correspondant à l'utilisateur trouvé");
+    }
+  } catch (error) {
+    console.error("Erreur lors de la récupération des informations de l'utilisateur :", error);
+    throw error;
+  }
+};
+
+// export const getNombrePublications = async () => {
 //   try {
-//     const userRef = doc(firestore, "utilisateurs", email);
+//     const user = auth.currentUser;
+//     if (!user) throw new Error("Aucun utilisateur connecté");
 
-//     await setDoc(
-//       userRef,
-//       {
-//         pseudo: pseudo,
-//         bio: bio,
-//         photoProfil: photoProfil,
-//         photoCouverture: photoCouverture,
-//       },
-//       { merge: true }
-//     );
+//     const q = query(collection(firestore, "publications"), where("userId", "==", user.uid));
+//     const querySnapshot = await getDocs(q);
 
-//     console.log("Profil utilisateur mis à jour avec succès !");
+//     return querySnapshot.size;
 //   } catch (error) {
-//     console.error("Erreur lors de la mise à jour du profil de l'utilisateur :", error);
-//     throw error;
-//   }
-// };
-
-// // Fonction pour ajouter un post pour un utilisateur
-// export const ajouterPostUtilisateur = async (email, imageUrl, description) => {
-//   try {
-//     const userRef = doc(firestore, "utilisateurs", email);
-//     const postRef = collection(userRef, "posts");
-
-//     await addDoc(postRef, {
-//       imageUrl: imageUrl,
-//       description: description,
-//       date: new Date().toISOString(),
-//       likes: [],
-//       commentaires: [],
-//     });
-
-//     console.log("Post ajouté avec succès !");
-//   } catch (error) {
-//     console.error("Erreur lors de l'ajout du post :", error);
-//     throw error;
-//   }
-// };
-
-// // Fonction pour ajouter un commentaire à un post
-// export const ajouterCommentaire = async (email, postId, commentaire) => {
-//   try {
-//     const userRef = doc(firestore, "utilisateurs", email);
-//     const postRef = doc(userRef, "posts", postId);
-//     const commentairesRef = collection(postRef, "commentaires");
-
-//     await addDoc(commentairesRef, {
-//       utilisateur: email,
-//       contenu: commentaire,
-//       date: new Date().toISOString(),
-//     });
-
-//     console.log("Commentaire ajouté avec succès !");
-//   } catch (error) {
-//     console.error("Erreur lors de l'ajout du commentaire :", error);
-//     throw error;
-//   }
-// };
-
-// // Fonction pour ajouter un like à un post
-// export const ajouterLike = async (email, postId) => {
-//   try {
-//     const userRef = doc(firestore, "utilisateurs", email);
-//     const postRef = doc(userRef, "posts", postId);
-
-//     await setDoc(
-//       postRef,
-//       {
-//         likes: firestore.FieldValue.arrayUnion(email),
-//       },
-//       { merge: true }
-//     );
-
-//     console.log("Like ajouté avec succès !");
-//   } catch (error) {
-//     console.error("Erreur lors de l'ajout du like :", error);
-//     throw error;
-//   }
-// };
-
-// // Fonction pour ajouter un abonnement à un utilisateur
-// export const ajouterAbonnement = async (email, abonnementEmail) => {
-//   try {
-//     const userRef = doc(firestore, "utilisateurs", email);
-
-//     await setDoc(
-//       userRef,
-//       {
-//         abonnements: firestore.FieldValue.arrayUnion(abonnementEmail),
-//       },
-//       { merge: true }
-//     );
-
-//     console.log("Abonnement ajouté avec succès !");
-//   } catch (error) {
-//     console.error("Erreur lors de l'ajout de l'abonnement :", error);
-//     throw error;
-//   }
-// };
-
-// // Fonction pour supprimer un abonnement à un utilisateur
-// export const supprimerAbonnement = async (email, abonnementEmail) => {
-//   try {
-//     const userRef = doc(firestore, "utilisateurs", email);
-
-//     await setDoc(
-//       userRef,
-//       {
-//         abonnements: firestore.FieldValue.arrayRemove(abonnementEmail),
-//       },
-//       { merge: true }
-//     );
-
-//     console.log("Abonnement supprimé avec succès !");
-//   } catch (error) {
-//     console.error("Erreur lors de la suppression de l'abonnement :", error);
-//     throw error;
-//   }
-// };
-
-// // Fonction pour obtenir tous les posts d'un utilisateur
-// export const obtenirPostsUtilisateur = async (email) => {
-//   try {
-//     const userRef = doc(firestore, "utilisateurs", email);
-//     const postsRef = collection(userRef, "posts");
-//     const snapshot = await getDocs(postsRef);
-//     const posts = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-//     return posts;
-//   } catch (error) {
-//     console.error("Erreur lors de la récupération des posts de l'utilisateur :", error);
-//     throw error;
-//   }
-// };
-
-// // Fonction pour obtenir tous les commentaires d'un post
-// export const obtenirCommentairesPost = async (email, postId) => {
-//   try {
-//     const userRef = doc(firestore, "utilisateurs", email);
-//     const postRef = doc(userRef, "posts", postId);
-//     const commentairesRef = collection(postRef, "commentaires");
-//     const snapshot = await getDocs(commentairesRef);
-//     const commentaires = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-//     return commentaires;
-//   } catch (error) {
-//     console.error("Erreur lors de la récupération des commentaires du post :", error);
+//     console.error("Erreur lors de la récupération du nombre de publications :", error);
 //     throw error;
 //   }
 // };
