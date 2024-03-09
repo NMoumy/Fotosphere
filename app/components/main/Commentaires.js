@@ -10,7 +10,7 @@ export default function Commentaires({ commentaires }) {
         <ScrollView style={styles.conteneur}>
             {commentaires.map((commentaire, index) => (
                 <View key={index} style={styles.commentaire}>
-                    <Text style={styles.utilisateur}>{commentaire.user}</Text>
+                    <Text style={styles.utilisateur}>{commentaire.pseudo}</Text>
                     <Text style={styles.texte}>{commentaire.commentaire}</Text>
                 </View>
             ))}

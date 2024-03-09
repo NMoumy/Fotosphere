@@ -21,8 +21,6 @@ import {
 // Fonction pour créer un nouveau post
 export const creerPost = async (userId, image, description) => {
   try {
-    const firestore = getFirestore();
-
     // Récupérer les informations de l'utilisateur
     const userDocRef = doc(firestore, "utilisateurs", userId);
     const userDocSnapshot = await getDoc(userDocRef);
@@ -59,7 +57,6 @@ export const creerPost = async (userId, image, description) => {
 
 // Fonction pour obtenir tous les posts de tous les utilisateurs
 export const obtenirTousLesPosts = (rappel) => {
-  const firestore = getFirestore();
   const requetePosts = query(collection(firestore, "posts"), orderBy("date", "desc"));
 
   const desabonner = onSnapshot(requetePosts, (instantane) => {
@@ -98,6 +95,7 @@ export const uploadImage = async (userId, image) => {
   }
 };
 
+// Fonction pour obtenir les informations de l'utilisateur actuellement connecté
 export const getInfosUtilisateur = async () => {
   try {
     const user = auth.currentUser;
@@ -117,17 +115,40 @@ export const getInfosUtilisateur = async () => {
   }
 };
 
-// export const getNombrePublications = async () => {
-//   try {
-//     const user = auth.currentUser;
-//     if (!user) throw new Error("Aucun utilisateur connecté");
+// Fonction pour modifier le profil de l'utilisateur
+export const modifierProfil = async ({ pseudo, bio, photoProfil, photoCouverture }) => {
+  try {
+    const idUtilisateur = auth.currentUser.uid;
 
-//     const q = query(collection(firestore, "publications"), where("userId", "==", user.uid));
-//     const querySnapshot = await getDocs(q);
+    // Télécharger les nouvelles images si elles sont fournies
+    let nouvelleUrlPhotoProfil, nouvelleUrlPhotoCouverture;
+    if (photoProfil) {
+      nouvelleUrlPhotoProfil = await uploadImage(idUtilisateur, photoProfil);
+    }
+    if (photoCouverture) {
+      nouvelleUrlPhotoCouverture = await uploadImage(idUtilisateur, photoCouverture);
+    }
 
-//     return querySnapshot.size;
-//   } catch (error) {
-//     console.error("Erreur lors de la récupération du nombre de publications :", error);
-//     throw error;
-//   }
-// };
+    // Créer l'objet de mise à jour
+    const miseAJour = {
+      ...(pseudo && { pseudo }),
+      ...(bio && { bio }),
+      ...(nouvelleUrlPhotoProfil && { photoProfil: nouvelleUrlPhotoProfil }),
+      ...(nouvelleUrlPhotoCouverture && { photoCouverture: nouvelleUrlPhotoCouverture }),
+    };
+
+    // Si l'objet miseAJour est vide, ne rien faire
+    if (Object.keys(miseAJour).length === 0) {
+      return;
+    }
+
+    // Mettre à jour le document de l'utilisateur
+    const refDocUtilisateur = doc(firestore, "utilisateurs", idUtilisateur);
+    await setDoc(refDocUtilisateur, miseAJour, { merge: true });
+
+    return miseAJour;
+  } catch (erreur) {
+    console.error("Erreur lors de la modification du profil :", erreur);
+    throw erreur;
+  }
+};

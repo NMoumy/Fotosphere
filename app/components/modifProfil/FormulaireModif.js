@@ -1,16 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Button, Image, Platform, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import * as ImagePicker from "expo-image-picker";
+import { modifierProfil, getInfosUtilisateur } from "../../services/firebase/fonctionData";
+import { useNavigation } from "@react-navigation/native";
 
 export default function FormulaireModif() {
-  const [imageProfil, setImageProfil] = useState(
-    "https://images.pexels.com/photos/18053574/pexels-photo-18053574/free-photo-of-homme-appareil-photo-ete-photographe.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-  );
-  const [imageCouverture, setImageCouverture] = useState(
-    "https://images.pexels.com/photos/20165766/pexels-photo-20165766/free-photo-of-bois-paysage-eau-ete.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-  );
+  const navigation = useNavigation();
+
+  const [photoProfil, setPhotoProfil] = useState(null);
+  const [photoCouverture, setPhotoCouverture] = useState(null);
   const [pseudo, setPseudo] = useState("");
   const [bio, setBio] = useState("");
+
+  useEffect(() => {
+    const fetchUserInfos = async () => {
+      try {
+        const user = await getInfosUtilisateur();
+        
+        setPhotoProfil(user.photoProfil);
+        setPhotoCouverture(user.photoCouverture);
+        setPseudo(user.pseudo);
+        setBio(user.bio);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des informations de l'utilisateur :", error);
+      }
+    };
+
+    fetchUserInfos();
+  }, []);
+
+  const confirmerModifications = async () => {
+    try {
+      const nouvellesInfos = { pseudo, bio, photoProfil, photoCouverture };
+      await modifierProfil(nouvellesInfos);
+      alert("Profil mis à jour avec succès !");
+      navigation.navigate("Profil");
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour du profil :", error);
+      alert("Erreur lors de la mise à jour du profil. Veuillez réessayer.");
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -38,22 +67,30 @@ export default function FormulaireModif() {
     <View style={styles.conteneur}>
       <View style={styles.conteneurImageUtil}>
         <TouchableOpacity
-          onPress={() => choisirImage(setImageCouverture, [10, 4])}
+          onPress={() => choisirImage(setPhotoCouverture, [10, 4])}
           style={styles.imageCouvertureConteneur}
         >
-          <Image source={{ uri: imageCouverture }} style={styles.imageCouverture} />
+          <Image source={{ uri: photoCouverture }} style={styles.imageCouverture} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => choisirImage(setImageProfil, [3, 3])}>
-          <Image source={{ uri: imageProfil }} style={styles.imageProfil} />
+        <TouchableOpacity onPress={() => choisirImage(setPhotoProfil, [3, 3])}>
+          <Image source={{ uri: photoProfil }} style={styles.imageProfil} />
         </TouchableOpacity>
       </View>
-      <TextInput style={styles.input} placeholder="Pseudo" />
-      <TextInput style={styles.input} placeholder="Bio" multiline numberOfLines={4} maxLength={65} />
+      <TextInput style={styles.input} placeholder="Pseudo" value={pseudo} onChangeText={setPseudo} maxLength={30} />
+      <TextInput
+        style={styles.input}
+        placeholder="Bio"
+        multiline
+        numberOfLines={4}
+        maxLength={65}
+        value={bio}
+        onChangeText={setBio}
+      />
       <View style={styles.conteneurBoutons}>
         <TouchableOpacity style={styles.boutonAnnuler} onPress={() => console.log("Annuler")}>
           <Text style={styles.texteBoutonAnnuler}>Annuler</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.boutonConfirmer} onPress={() => console.log("Confirmer")}>
+        <TouchableOpacity style={styles.boutonConfirmer} onPress={confirmerModifications}>
           <Text style={styles.texteBoutonConfirmer}>Confirmer</Text>
         </TouchableOpacity>
       </View>
@@ -95,7 +132,6 @@ const styles = StyleSheet.create({
     height: 40,
     width: "88%",
     backgroundColor: "#F1F1F1",
-    // borderColor: "grey",
     borderColor: "#E7E7E7",
     borderRadius: 5,
     margin: 12,
