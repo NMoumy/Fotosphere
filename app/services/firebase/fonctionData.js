@@ -90,6 +90,17 @@ export const obtenirTousLesPosts = (rappelPost, rappelUtilisateur) => {
   };
 };
 
+// Fonction pour obtenir les posts de l'utilisateur connecté
+export const obtenirPostsUtilisateurConnecte = (callback) => {
+  const userId = auth.currentUser.uid;
+
+  const userPostsQuery = query(collection(firestore, 'utilisateurs', userId, 'posts'));
+  return onSnapshot(userPostsQuery, (snapshot) => {
+    const posts = snapshot.docs.map(doc => doc.data());
+    callback(posts);
+  });
+};
+
 // Fonction pour televerser une image
 export const uploadImage = async (userId, image) => {
   try {

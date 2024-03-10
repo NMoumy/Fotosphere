@@ -11,6 +11,7 @@ import EcranInscription from "./app/screens/EcranInscription";
 import EcranProfil from "./app/screens/EcranProfil";
 import EcranParametre from "./app/screens/EcranParametre";
 import EcranModifProfil from "./app/screens/EcranModifProfil";
+import EcranPostDetail from "./app/screens/EcranPostDetail";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -59,6 +60,7 @@ export default function App() {
           <Stack.Screen name="Profil" component={EcranProfil} />
           <Stack.Screen name="Parametre" component={EcranParametre} />
           <Stack.Screen name="ModifProfil" component={EcranModifProfil} />
+          <Stack.Screen name="PostDetail" component={EcranPostDetail} />
         </Stack.Navigator>
       </View>
     </NavigationContainer>

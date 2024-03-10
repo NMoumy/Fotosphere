@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Image, FlatList, StyleSheet, TouchableOpacity, Animated, Dimensions, Text } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import { obtenirPostsUtilisateurConnecte } from '../../services/firebase/fonctionData';
 
 export default function PostProfil() {
   const [categorieSelectionnee, setCategorieSelectionnee] = useState(0);
   const positionBarre = useState(new Animated.Value(0))[0];
+  const [posts, setPosts] = useState([]);
+  const navigation = useNavigation();
 
-  const images = [
-    // "https://images.pexels.com/photos/18175568/pexels-photo-18175568/free-photo-of-oiseau-foret-jardin-hiver.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
-    // "https://images.pexels.com/photos/17875968/pexels-photo-17875968/free-photo-of-etre-assis-zoo-tropical-nourrir.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load",
-  ];
+  useEffect(() => {
+    const unsubscribe = obtenirPostsUtilisateurConnecte(setPosts);
 
-  const gererClick = (url) => {
-    console.log("Image pressée :", url);
+    // Se désinscrire de l'écouteur lorsque le composant est démonté
+    return () => unsubscribe();
+  }, []);
+
+  const gererClick = (post) => {
+    navigation.navigate('PostDetail', { post });
   };
 
   const selectionnerCategorie = (index) => {
@@ -58,11 +64,11 @@ export default function PostProfil() {
 
       <View style={styles.conteneurImages}>
         <FlatList
-          data={images}
+          data={posts}
           renderItem={({ item }) => (
             <View style={styles.imageConteneur}>
               <TouchableOpacity onPress={() => gererClick(item)}>
-                <Image source={{ uri: item }} style={styles.image} />
+                <Image source={{ uri: item.imageUrl }} style={styles.image} />
               </TouchableOpacity>
             </View>
           )}
@@ -84,6 +90,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "white",
+    paddingTop: 10,
   },
 
   categorie: {
