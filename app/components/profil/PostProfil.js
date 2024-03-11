@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, FlatList, StyleSheet, TouchableOpacity, Animated, Dimensions, Text } from "react-native";
-import { useNavigation } from '@react-navigation/native';
-import { obtenirPostsUtilisateurConnecte } from '../../services/firebase/fonctionData';
+import { useNavigation } from "@react-navigation/native";
+import { obtenirPostsUtilisateurConnecte } from "../../services/firebase/fonctionData";
 
 export default function PostProfil() {
   const [categorieSelectionnee, setCategorieSelectionnee] = useState(0);
@@ -17,7 +17,7 @@ export default function PostProfil() {
   }, []);
 
   const gererClick = (post) => {
-    navigation.navigate('PostDetail', { post });
+    navigation.navigate("PostDetail", { post });
   };
 
   const selectionnerCategorie = (index) => {
@@ -99,10 +99,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
   },
-  icon: { 
-    width: 25, 
-    height: 25, 
-    resizeMode: "contain"
+  icon: {
+    width: 25,
+    height: 25,
+    resizeMode: "contain",
   },
   // texte: {
   //   textAlign: "center",

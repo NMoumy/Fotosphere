@@ -1,22 +1,47 @@
-import { View, Text, Platform, StatusBar, SafeAreaView, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text, Platform, StatusBar, SafeAreaView, StyleSheet, FlatList } from "react-native";
+import React, { useEffect, useState, useRef } from "react";
 import EnteteRetour from "../components/nouveauPost/EnteteRetour";
-import { getInfosUtilisateur } from "../services/firebase/fonctionData";
-import Post from "../components/main/Post";
+import { getInfosUtilisateur, obtenirPostsUtilisateurConnecte } from "../services/firebase/fonctionData";
+import PostDetail from "../components/postDetail/PostDetail";
 
-export default function EcranProfil({ navigation, route }) {
+export default function EcranProfilDetail({ navigation, route }) {
   const [user, setUser] = useState(null);
-  const { post } = route.params;
+  const [posts, setPosts] = useState([]);
+  const flatListRef = useRef(); // Ajoutez cette ligne
 
   useEffect(() => {
     getInfosUtilisateur().then((infosUtilisateur) => {
       setUser(infosUtilisateur);
     });
+
+    const unsubscribe = obtenirPostsUtilisateurConnecte(setPosts);
+    return () => unsubscribe();
   }, []);
+
+  useEffect(() => {
+    if (route.params?.post) {
+      const index = posts.findIndex((post) => post.id === route.params.post.id);
+      if (index >= 0) {
+        flatListRef.current?.scrollToIndex({ index });
+      }
+    }
+  }, [posts, route.params?.post]);
+
   return (
     <SafeAreaView style={styles.conteneur}>
       <EnteteRetour navigation={navigation} titre={user?.pseudo} />
-      <Post post={post} />
+      <FlatList
+        ref={flatListRef}
+        data={posts}
+        keyExtractor={(post) => post.id}
+        renderItem={({ item: post }) => <PostDetail post={post} user={user} />}
+        onScrollToIndexFailed={(info) => {
+          const wait = new Promise((resolve) => setTimeout(resolve, 500));
+          wait.then(() => {
+            flatListRef.current?.scrollToIndex({ index: info.index, animated: true });
+          });
+        }}
+      />
     </SafeAreaView>
   );
 }

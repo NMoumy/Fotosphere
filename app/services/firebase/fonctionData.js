@@ -36,7 +36,7 @@ export const creerPost = async (userId, image, description) => {
     const postRef = await addDoc(collection(firestore, "posts"), post);
 
     // Ajouter le post à la collection de posts de l'utilisateur
-    await setDoc(doc(firestore, "utilisateurs", userId, "posts", postRef.id), post);
+    // await setDoc(doc(firestore, "utilisateurs", userId, "posts", postRef.id), post);
 
     // Créer une collection "commentaires" vide pour le nouveau post
     const commentairesCollectionRef = collection(postRef, "commentaires");
@@ -94,9 +94,14 @@ export const obtenirTousLesPosts = (rappelPost, rappelUtilisateur) => {
 export const obtenirPostsUtilisateurConnecte = (callback) => {
   const userId = auth.currentUser.uid;
 
-  const userPostsQuery = query(collection(firestore, 'utilisateurs', userId, 'posts'));
+  // Obtenir les posts de l'utilisateur connecté, ordonnés par date
+  const userPostsQuery = query(collection(firestore, "posts"), where('userId', '==', userId), orderBy("date", "desc"));
+
   return onSnapshot(userPostsQuery, (snapshot) => {
-    const posts = snapshot.docs.map(doc => doc.data());
+    const posts = snapshot.docs.map(doc => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
     callback(posts);
   });
 };
