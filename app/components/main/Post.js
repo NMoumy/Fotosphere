@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, StatusBar, TextInput } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, TextInput } from "react-native";
 import React, { useEffect, useState } from "react";
 import Commentaires from "./Commentaires";
 import { ajouterCommentaire, getInfosUtilisateur, obtenirCommentaires } from "../../services/firebase/fonctionData";
@@ -84,7 +84,7 @@ export default function Post({ post }) {
               }
               style={{ width: 20, height: 20, resizeMode: "contain" }}
             />
-            <Text style={{ color: "#7C8089" }}>{nombreLikes}</Text>
+            <Text style={{ color: "#7C8089" }}>{nombreLikes.length}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={ouvrirCommentaires} style={styles.conteneurCommentaires}>

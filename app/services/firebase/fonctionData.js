@@ -16,6 +16,9 @@ import {
   serverTimestamp,
   Firestore,
   where,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 
 // Fonction pour créer un nouveau post
@@ -95,10 +98,10 @@ export const obtenirPostsUtilisateurConnecte = (callback) => {
   const userId = auth.currentUser.uid;
 
   // Obtenir les posts de l'utilisateur connecté, ordonnés par date
-  const userPostsQuery = query(collection(firestore, "posts"), where('userId', '==', userId), orderBy("date", "desc"));
+  const userPostsQuery = query(collection(firestore, "posts"), where("userId", "==", userId), orderBy("date", "desc"));
 
   return onSnapshot(userPostsQuery, (snapshot) => {
-    const posts = snapshot.docs.map(doc => ({
+    const posts = snapshot.docs.map((doc) => ({
       ...doc.data(),
       id: doc.id,
     }));
@@ -212,7 +215,7 @@ export const obtenirCommentaires = (postId, setCommentaires) => {
   try {
     const commentairesCollectionRef = collection(firestore, "posts", postId, "commentaires");
     const unsubscribe = onSnapshot(commentairesCollectionRef, (snapshot) => {
-      const commentaires = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      const commentaires = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
       setCommentaires(commentaires);
     });
 
