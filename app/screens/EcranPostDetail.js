@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from "react";
 import EnteteRetour from "../components/nouveauPost/EnteteRetour";
 import { getInfosUtilisateur, obtenirPostsUtilisateurConnecte } from "../services/firebase/fonctionData";
 import PostDetail from "../components/postDetail/PostDetail";
+import NavBar, { navBarIcons } from "../components/main/NavBar";
 
 export default function EcranProfilDetail({ navigation, route }) {
   const [user, setUser] = useState(null);
@@ -33,6 +34,7 @@ export default function EcranProfilDetail({ navigation, route }) {
       <FlatList
         ref={flatListRef}
         data={posts}
+        style={{ backgroundColor: "#FAFAFA"}}
         keyExtractor={(post) => post.id}
         renderItem={({ item: post }) => <PostDetail post={post} user={user} />}
         onScrollToIndexFailed={(info) => {
@@ -42,6 +44,7 @@ export default function EcranProfilDetail({ navigation, route }) {
           });
         }}
       />
+      <NavBar icons={navBarIcons} />
     </SafeAreaView>
   );
 }

@@ -1,11 +1,32 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, StatusBar } from "react-native";
-import React, { useState } from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, StatusBar, TextInput } from "react-native";
+import React, { useEffect, useState } from "react";
 import Commentaires from "./Commentaires";
+import { ajouterCommentaire, getInfosUtilisateur, obtenirCommentaires } from "../../services/firebase/fonctionData";
 
 export default function Post({ post }) {
   const [activeLike, setActiveLike] = useState(false);
   const [nombreLikes, setNombreLikes] = useState(post.likes);
   const [modalVisible, setModalVisible] = useState(false);
+  const [nouveauCommentaire, setNouveauCommentaire] = useState("");
+  const [commentaires, setCommentaires] = useState([]);
+
+  useEffect(() => {
+    const unsubscribe = obtenirCommentaires(post.id, setCommentaires);
+
+    // Arrêter d'écouter les modifications lorsque le composant est démonté
+    return () => unsubscribe();
+  }, [post.id]);
+  
+  const soumettreCommentaire = async () => {
+    try {
+      const infosUtilisateur = await getInfosUtilisateur();
+      await ajouterCommentaire(post.id, infosUtilisateur, nouveauCommentaire);
+      setNouveauCommentaire("");
+      console.log("Commentaire ajouté avec succès");
+    } catch (error) {
+      console.error("Erreur lors de la soumission du commentaire:", error);
+    }
+  };
 
   const basculerLike = () => {
     setActiveLike(!activeLike);
@@ -71,17 +92,31 @@ export default function Post({ post }) {
               source={require("../../assets/images/commentaire.png")}
               style={{ width: 20, height: 20, resizeMode: "contain" }}
             />
-            <Text style={{ color: "#7C8089" }}>{post.commentaires ? post.commentaires.length : 0}</Text>
+            <Text style={{ color: "#7C8089" }}>{commentaires ? commentaires.length : 0}</Text>
           </TouchableOpacity>
         </View>
 
         <Modal visible={modalVisible} transparent={true}>
           <View style={styles.supperpostion}>
             <View style={styles.conteneurGlobalCommentaires}>
-              <TouchableOpacity onPress={fermerCommentaires}>
-                <Text style={{ fontSize: 30, textAlign: "right", marginRight: 10 }}>✕</Text>
-              </TouchableOpacity>
-              <Commentaires commentaires={post.commentaires} />
+              <View style={styles.enteteCommentaire}>
+                <Text>{commentaires?.length || 0} commentaires</Text>
+                <TouchableOpacity onPress={fermerCommentaires}>
+                  <Text style={{ fontSize: 30, textAlign: "right", marginRight: 10 }}>✕</Text>
+                </TouchableOpacity>
+              </View>
+              <Commentaires commentaires={commentaires} />
+              <View style={styles.conteneurAjoutCommentaire}>
+                <TextInput
+                  type="text"
+                  placeholder="Ajouter un commentaire"
+                  style={styles.ajoutCommentaire}
+                  value={nouveauCommentaire}
+                  onChangeText={setNouveauCommentaire}
+                  onSubmitEditing={soumettreCommentaire}
+                  
+                />
+              </View>
             </View>
           </View>
         </Modal>
@@ -154,17 +189,41 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.5)",
     // paddingTop: -StatusBar.currentHeight,
   },
+
+  // Commentaires
+
   conteneurGlobalCommentaires: {
     // Conteneur des commentaires global
     backgroundColor: "white",
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    // borderTopWidth: 2,
-    // borderColor: "#D9D9D9",
     width: "100%",
     height: "70%",
-    // justifyContent: "flex-end",
     position: "absolute",
     bottom: 0,
+  },
+  enteteCommentaire: {
+    // Entête des commentaires
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderBottomWidth: 1,
+    borderColor: "#D9D9D9",
+  },
+  conteneurAjoutCommentaire: {
+    backgroundColor: "#black",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 10,
+    borderTopWidth: 1,
+    borderColor: "#D9D9D9",
+  },
+  ajoutCommentaire: {
+    backgroundColor: "#F1F1F1",
+    // height: 4,
+    padding: 7,
+    borderRadius: 25,
+    width: "90%",
   },
 });

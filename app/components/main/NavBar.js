@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useRoute } from "@react-navigation/native";
 
 export const navBarIcons = [
   {
@@ -22,17 +23,16 @@ export const navBarIcons = [
 
 export default function NavBar({ icons }) {
   const navigation = useNavigation();
-  const [activeOnglet, setActiveOnglet] = useState("Accueil");
+  const route = useRoute(); // Ajoutez cette ligne
 
   const Icon = ({ icon }) => (
     <TouchableOpacity
       onPress={() => {
-        setActiveOnglet(icon.nom);
-        navigation.navigate(icon.nom, {}, () => setActiveOnglet(icon.nom));
+        navigation.navigate(icon.nom);
       }}
     >
       <Image
-        source={activeOnglet === icon.nom ? icon.active : icon.inactive}
+        source={route.name === icon.nom ? icon.active : icon.inactive} // Modifiez cette ligne
         style={icon.nom === "AjoutPost" ? styles.iconAjouter : styles.icon}
       />
     </TouchableOpacity>
@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    paddingVertical: 8,
-    borderTopWidth: 2,
+    paddingVertical: 9,
+    borderTopWidth: 1,
     borderTopColor: "#D9D9D9",
   },
   icon: {
