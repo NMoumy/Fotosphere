@@ -16,7 +16,7 @@ export default function Post({ post }) {
     // Arrêter d'écouter les modifications lorsque le composant est démonté
     return () => unsubscribe();
   }, [post.id]);
-  
+
   const soumettreCommentaire = async () => {
     try {
       const infosUtilisateur = await getInfosUtilisateur();
@@ -100,9 +100,10 @@ export default function Post({ post }) {
           <View style={styles.supperpostion}>
             <View style={styles.conteneurGlobalCommentaires}>
               <View style={styles.enteteCommentaire}>
-                <Text>{commentaires?.length || 0} commentaires</Text>
-                <TouchableOpacity onPress={fermerCommentaires}>
-                  <Text style={{ fontSize: 30, textAlign: "right", marginRight: 10 }}>✕</Text>
+                <View />
+                <Text style={styles.enteteTexte}>{commentaires?.length || 0} commentaires</Text>
+                <TouchableOpacity onPress={fermerCommentaires} style={{}}>
+                  <Image style={styles.btnQuitter} source={require("../../assets/images/btn-quitter.png")} />
                 </TouchableOpacity>
               </View>
               <Commentaires commentaires={commentaires} />
@@ -114,7 +115,6 @@ export default function Post({ post }) {
                   value={nouveauCommentaire}
                   onChangeText={setNouveauCommentaire}
                   onSubmitEditing={soumettreCommentaire}
-                  
                 />
               </View>
             </View>
@@ -130,8 +130,6 @@ const styles = StyleSheet.create({
     // Conteneur global
     paddingVertical: 15,
     color: "red",
-    // width: "98%",
-    // alignItems: "center",
   },
   entetePost: {
     // Contenuer du profil et de la date
@@ -159,13 +157,11 @@ const styles = StyleSheet.create({
     // Conteneur des likes, commentaires et description
     paddingHorizontal: 10,
     paddingTop: 5,
-    // backgroundColor: "grey",
   },
   conteneurIcons: {
     // Conteneur des likes et commentaires
     flexDirection: "row",
     gap: 20,
-    // backgroundColor: "red",
   },
   conteneurLikes: {
     // Conteneur des likes
@@ -190,8 +186,6 @@ const styles = StyleSheet.create({
     // paddingTop: -StatusBar.currentHeight,
   },
 
-  // Commentaires
-
   conteneurGlobalCommentaires: {
     // Conteneur des commentaires global
     backgroundColor: "white",
@@ -206,10 +200,24 @@ const styles = StyleSheet.create({
     // Entête des commentaires
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 10,
-    paddingVertical: 5,
+    paddingVertical: 10,
     borderBottomWidth: 1,
     borderColor: "#D9D9D9",
+  },
+  enteteTexte: {
+    // Texte de l'entête
+    alignItems: "flex-start",
+    fontFamily: "Inter-SemiBold",
+    color: "#EA5D55",
+    textAlign: "center",
+    fontSize: 16,
+  },
+  btnQuitter: {
+    height: 20,
+    aspectRatio: 1,
+    // paddingRight: 10,
   },
   conteneurAjoutCommentaire: {
     backgroundColor: "#black",
@@ -221,9 +229,8 @@ const styles = StyleSheet.create({
   },
   ajoutCommentaire: {
     backgroundColor: "#F1F1F1",
-    // height: 4,
     padding: 7,
     borderRadius: 25,
-    width: "90%",
+    width: "95%",
   },
 });
