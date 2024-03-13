@@ -3,8 +3,8 @@ import React, { useEffect, useState, useRef } from "react";
 import EnteteRetour from "../components/nouveauPost/EnteteRetour";
 import { getInfosUtilisateur } from "../services/firebase/fonctionUtil";
 import { obtenirPostsUtilisateurConnecte } from "../services/firebase/fonctionPost";
-import PostDetail from "../components/postDetail/PostDetail";
 import NavBar, { navBarIcons } from "../components/main/NavBar";
+import Post from "../components/main/Post";
 
 export default function EcranProfilDetail({ navigation, route }) {
   const [user, setUser] = useState(null);
@@ -35,9 +35,9 @@ export default function EcranProfilDetail({ navigation, route }) {
       <FlatList
         ref={flatListRef}
         data={posts}
-        style={{ backgroundColor: "#FAFAFA"}}
+        style={{ backgroundColor: "#FAFAFA" }}
         keyExtractor={(post) => post.id}
-        renderItem={({ item: post }) => <PostDetail post={post} user={user} />}
+        renderItem={({ item: post }) => <Post post={post} user={user} estEcranAccueil={false} />}
         onScrollToIndexFailed={(info) => {
           const wait = new Promise((resolve) => setTimeout(resolve, 500));
           wait.then(() => {

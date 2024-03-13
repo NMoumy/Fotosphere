@@ -30,8 +30,8 @@ export default function EcranProfilAutre({ navigation, route }) {
         getEranProfil={nonProfil}
       />
       <ScrollView>
-        <InfoProfil userData={userData} />
-        <PostProfil />
+        <InfoProfil userAutre={userData} estEcranProfilAutre={true}/>
+        <PostProfil userAutre={userId} estEcranProfilAutre={true}/>
       </ScrollView>
       <NavBar icons={navBarIcons} />
     </SafeAreaView>

@@ -5,7 +5,7 @@ import { ajouterCommentaire, obtenirCommentaires } from "../../services/firebase
 import { getInfosUtilisateur } from "../../services/firebase/fonctionUtil";
 import { useNavigation } from "@react-navigation/native";
 
-export default function Post({ post }) {
+export default function Post({ post, estEcranAccueil, user }) {
   const [activeLike, setActiveLike] = useState(false);
   const [nombreLikes, setNombreLikes] = useState(post.likes);
   const [modalVisible, setModalVisible] = useState(false);
@@ -13,6 +13,8 @@ export default function Post({ post }) {
   const [commentaires, setCommentaires] = useState([]);
 
   const navigation = useNavigation();
+
+  const userEcran = estEcranAccueil ? post.utilisateur : user;
 
   useEffect(() => {
     const unsubscribe = obtenirCommentaires(post.id, setCommentaires);
@@ -56,13 +58,13 @@ export default function Post({ post }) {
           <View style={styles.infoProfil}>
             <Image
               source={
-                typeof post.utilisateur.photoProfil === "string"
-                  ? { uri: post.utilisateur.photoProfil }
+                typeof userEcran.photoProfil === "string"
+                  ? { uri: userEcran.photoProfil }
                   : require("../../assets/images/image-defaut.jpg")
               }
               style={{ width: 40, height: 40, borderRadius: 50, borderWidth: 1, borderColor: "#D9D9D9" }}
             />
-            <Text style={{ fontFamily: "Inter-Bold", color: "#222222" }}>{post.utilisateur.pseudo}</Text>
+            <Text style={{ fontFamily: "Inter-Bold", color: "#222222" }}>{userEcran.pseudo}</Text>
           </View>
         </TouchableOpacity>
         <Text style={{ color: "#7C8089", fontFamily: "Inter-Regular" }}>

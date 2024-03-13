@@ -37,7 +37,7 @@ export default function EcranAccueil() {
       <CategoriePhoto />
       <ScrollView style={styles.conteneurPosts}>
         {posts.map((post, index) => (
-          <Post key={index} post={post} />
+          <Post key={index} post={post} estEcranAccueil={true} />
         ))}
       </ScrollView>
       <NavBar icons={navBarIcons} />

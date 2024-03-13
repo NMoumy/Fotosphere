@@ -1,24 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, FlatList, StyleSheet, TouchableOpacity, Animated, Dimensions, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { obtenirPostsUtilisateurConnecte } from "../../services/firebase/fonctionPost";
+import { obtenirPostsParUserId, obtenirPostsUtilisateurConnecte } from "../../services/firebase/fonctionPost";
 
-export default function PostProfil() {
+export default function PostProfil({userAutre, estEcranProfilAutre}) {
   const [categorieSelectionnee, setCategorieSelectionnee] = useState(0);
   const positionBarre = useState(new Animated.Value(0))[0];
   const [posts, setPosts] = useState([]);
   const navigation = useNavigation();
 
   useEffect(() => {
-    const unsubscribe = obtenirPostsUtilisateurConnecte(setPosts);
+    let unsubscribe;
+
+    if (estEcranProfilAutre) {
+      unsubscribe = obtenirPostsParUserId(userAutre, setPosts);
+    } else {
+      unsubscribe = obtenirPostsUtilisateurConnecte(setPosts);
+    }
 
     // Se désinscrire de l'écouteur lorsque le composant est démonté
     return () => unsubscribe();
-  }, []);
+  }, [userAutre, estEcranProfilAutre]);
 
   const gererClick = (post) => {
     navigation.navigate("PostDetail", { post });
   };
+
+  console.log("userAutre", userAutre);
 
   const selectionnerCategorie = (index) => {
     setCategorieSelectionnee(index);

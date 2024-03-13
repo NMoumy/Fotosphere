@@ -3,10 +3,11 @@ import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from "react-n
 import { getInfosUtilisateur } from "../../services/firebase/fonctionUtil";
 import { useNavigation } from "@react-navigation/native";
 
-export default function InfoProfil() {
-  const navigation = useNavigation(); // Ajoutez cette ligne
+export default function InfoProfil({userAutre, estEcranProfilAutre}) {
+  const navigation = useNavigation();
 
   const [user, setUser] = useState(null);
+  const userEcran = estEcranProfilAutre ? userAutre : user;
 
   useEffect(() => {
     getInfosUtilisateur().then((infosUtilisateur) => {
@@ -17,22 +18,22 @@ export default function InfoProfil() {
   return (
     <View style={styles.conteneur}>
       <View style={styles.conteneurImageUtil}>
-        <Image source={{ uri: user?.photoCouverture }} style={styles.imageCouverture} />
-        <Image source={{ uri: user?.photoProfil }} style={styles.imageProfil} />
+        <Image source={{ uri: userEcran?.photoCouverture }} style={styles.imageCouverture} />
+        <Image source={{ uri: userEcran?.photoProfil }} style={styles.imageProfil} />
       </View>
-      <Text style={styles.textNom}>{user?.pseudo}</Text>
-      <Text style={styles.textbio}>{user?.bio}</Text>
+      <Text style={styles.textNom}>{userEcran?.pseudo}</Text>
+      <Text style={styles.textbio}>{userEcran?.bio}</Text>
       <View style={styles.conteneurStatus}>
         <View style={styles.infoStatus}>
           <Text style={{ fontFamily: "Inter-SemiBold", fontSize: 16 }}>126</Text>
           <Text style={{ fontFamily: "Inter-Regular" }}>Publications</Text>
         </View>
         <View style={styles.infoStatus}>
-          <Text style={{ fontFamily: "Inter-SemiBold", fontSize: 16 }}>{user?.abonnes.length}</Text>
+          <Text style={{ fontFamily: "Inter-SemiBold", fontSize: 16 }}>{userEcran?.abonnes.length}</Text>
           <Text style={{ fontFamily: "Inter-Regular" }}>Abonnés</Text>
         </View>
         <View style={styles.infoStatus}>
-          <Text style={{ fontFamily: "Inter-SemiBold", fontSize: 16 }}>{user?.abonnements.length}</Text>
+          <Text style={{ fontFamily: "Inter-SemiBold", fontSize: 16 }}>{userEcran?.abonnements.length}</Text>
           <Text style={{ fontFamily: "Inter-Regular" }}>Abonnements</Text>
         </View>
       </View>

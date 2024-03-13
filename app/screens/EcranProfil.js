@@ -20,8 +20,8 @@ export default function EcranProfil({ navigation }) {
     <SafeAreaView style={styles.conteneur}>
       <EnteteRetour navigation={navigation} titre={user?.pseudo} getEranProfil={user?.pseudo} />
       <ScrollView>
-        <InfoProfil />
-        <PostProfil />
+        <InfoProfil estEcranProfilAutre={false}/>
+        <PostProfil estEcranProfilAutre={false}/>
       </ScrollView>
       <NavBar icons={navBarIcons} />
     </SafeAreaView>
