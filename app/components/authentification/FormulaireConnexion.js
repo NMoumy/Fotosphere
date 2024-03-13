@@ -1,13 +1,29 @@
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connecterUtilisateur } from "../../services/firebase/auth"; // Import the function
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../../services/firebase/init";
 
 export default function FormulaireConnexion() {
   const [courriel, setCourriel] = useState("");
   const [motDePasse, setMotDePasse] = useState("");
 
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      if (user) {
+        navigation.navigate("Accueil");
+      } else {
+        // L'utilisateur est déconnecté
+        console.log('Utilisateur déconnecté');
+      }
+    });
+  
+    // Se désabonner de l'écouteur d'état de connexion lorsque le composant est démonté
+    return unsubscribe;
+  }, []);
 
   const gererConnexion = async () => {
     try {

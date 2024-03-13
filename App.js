@@ -25,7 +25,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   // Changement de la couleur de la barre de navigation
-  NavigationBar.setBackgroundColorAsync("white");
+  NavigationBar.setBackgroundColorAsync("black");
 
   // Chargement des polices
   const [fontsLoaded, fontError] = useFonts({

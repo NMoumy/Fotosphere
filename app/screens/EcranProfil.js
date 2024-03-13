@@ -19,7 +19,7 @@ export default function EcranProfil({ navigation }) {
 
   return (
     <SafeAreaView style={styles.conteneur}>
-      <EnteteRetour navigation={navigation} titre={user?.pseudo} />
+      <EnteteRetour navigation={navigation} titre={user?.pseudo} getEranProfil={user?.pseudo} />
       <ScrollView>
         <InfoProfil />
         <PostProfil />

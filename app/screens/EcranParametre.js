@@ -1,16 +1,13 @@
 import { View, Text, SafeAreaView, StyleSheet, Platform, StatusBar, TouchableOpacity } from "react-native";
 import React from "react";
 import EnteteRetour from "../components/nouveauPost/EnteteRetour";
+import { deconnecterUtilisateur } from "../services/firebase/auth";
 
-export default function EcranParametre() {
-  const deconnecterUtil = () => {
-    console.log("Déconnexion de l'utilisateur");
-  };
-
+export default function EcranParametre({ navigation }) {
   return (
     <SafeAreaView style={styles.conteneur}>
-      <EnteteRetour titre="Paramètres" />
-      <TouchableOpacity onPress={deconnecterUtil} style={styles.bouton}>
+      <EnteteRetour titre="Paramètres" navigation={navigation} />
+      <TouchableOpacity onPress={() => deconnecterUtilisateur(navigation)} style={styles.bouton}>
         <Text style={styles.boutonTexte}>Deconnexion</Text>
       </TouchableOpacity>
     </SafeAreaView>

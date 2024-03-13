@@ -63,7 +63,7 @@ export default function Post({ post, user }) {
               }
               style={{ width: 20, height: 20, resizeMode: "contain" }}
             />
-            <Text style={{ color: "#7C8089" }}>{nombreLikes}</Text>
+            <Text style={{ color: "#7C8089" }}>{nombreLikes.length}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={ouvrirCommentaires} style={styles.conteneurCommentaires}>
