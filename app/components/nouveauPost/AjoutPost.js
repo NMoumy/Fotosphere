@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Button, Image, Platform, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { creerPost } from "../../services/firebase/fonctionData";
+import { creerPost } from "../../services/firebase/fonctionPost";
 import { useNavigation } from "@react-navigation/native";
 import { auth } from "../../services/firebase/init";
 

@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StyleSheet, Platform, StatusBar, TouchableOpacity } from "react-native";
+import { Text, SafeAreaView, StyleSheet, Platform, StatusBar, TouchableOpacity } from "react-native";
 import React from "react";
 import EnteteRetour from "../components/nouveauPost/EnteteRetour";
 import { deconnecterUtilisateur } from "../services/firebase/auth";
@@ -21,13 +21,17 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   bouton: {
-    backgroundColor: "red",
+    backgroundColor: "#EA5D55",
     padding: 10,
+    alignSelf: "center",
+    marginVertical: 10,
+    width: 150, 
     borderRadius: 5,
     margin: 10,
   },
   boutonTexte: {
     color: "white",
     textAlign: "center",
+    fontFamily: "Inter-Bold",
   },
 });

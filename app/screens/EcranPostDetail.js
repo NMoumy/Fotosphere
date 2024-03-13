@@ -1,7 +1,8 @@
-import { View, Text, Platform, StatusBar, SafeAreaView, StyleSheet, FlatList } from "react-native";
+import { Platform, StatusBar, SafeAreaView, StyleSheet, FlatList } from "react-native";
 import React, { useEffect, useState, useRef } from "react";
 import EnteteRetour from "../components/nouveauPost/EnteteRetour";
-import { getInfosUtilisateur, obtenirPostsUtilisateurConnecte } from "../services/firebase/fonctionData";
+import { getInfosUtilisateur } from "../services/firebase/fonctionUtil";
+import { obtenirPostsUtilisateurConnecte } from "../services/firebase/fonctionPost";
 import PostDetail from "../components/postDetail/PostDetail";
 import NavBar, { navBarIcons } from "../components/main/NavBar";
 

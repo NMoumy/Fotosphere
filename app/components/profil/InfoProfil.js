@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from "react-native";
-import { getInfosUtilisateur } from "../../services/firebase/fonctionData";
+import { getInfosUtilisateur } from "../../services/firebase/fonctionUtil";
 import { useNavigation } from "@react-navigation/native";
 
 export default function InfoProfil() {

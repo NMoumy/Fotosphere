@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, FlatList, StyleSheet, TouchableOpacity, Animated, Dimensions, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { obtenirPostsUtilisateurConnecte } from "../../services/firebase/fonctionData";
+import { obtenirPostsUtilisateurConnecte } from "../../services/firebase/fonctionPost";
 
 export default function PostProfil() {
   const [categorieSelectionnee, setCategorieSelectionnee] = useState(0);

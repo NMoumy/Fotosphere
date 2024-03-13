@@ -3,7 +3,7 @@ import Entete from "../components/main/Entete";
 import CategoriePhoto from "../components/main/CategoriePhoto";
 import Post from "../components/main/Post";
 import NavBar, { navBarIcons } from "../components/main/NavBar";
-import { obtenirTousLesPosts } from "../services/firebase/fonctionData"; // Assurez-vous que le chemin est correct
+import { obtenirTousLesPosts } from "../services/firebase/fonctionPost"; // Assurez-vous que le chemin est correct
 import { useEffect, useState } from "react";
 
 export default function EcranAccueil() {

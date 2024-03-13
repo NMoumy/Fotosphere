@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, Button, Image, Platform, TouchableOpacity, StyleSheet, TextInput } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { modifierProfil, getInfosUtilisateur } from "../../services/firebase/fonctionData";
+import { modifierProfil, getInfosUtilisateur } from "../../services/firebase/fonctionUtil";
 import { useNavigation } from "@react-navigation/native";
 
 export default function FormulaireModif() {

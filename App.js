@@ -12,6 +12,7 @@ import EcranProfil from "./app/screens/EcranProfil";
 import EcranParametre from "./app/screens/EcranParametre";
 import EcranModifProfil from "./app/screens/EcranModifProfil";
 import EcranPostDetail from "./app/screens/EcranPostDetail";
+import EcranProfilAutre from "./app/screens/EcranProfilAutre";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -51,7 +52,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <View style={styles.container} onLayout={onLayoutRootView}>
-        <Stack.Navigator initialRouteName="Inscription" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName="Connexion" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Accueil" component={EcranAccueil} />
           <Stack.Screen name="AjoutPost" component={EcranAjoutPost} />
           <Stack.Screen name="Intro" component={EcranIntro} />
@@ -61,6 +62,7 @@ export default function App() {
           <Stack.Screen name="Parametre" component={EcranParametre} />
           <Stack.Screen name="ModifProfil" component={EcranModifProfil} />
           <Stack.Screen name="PostDetail" component={EcranPostDetail} />
+          <Stack.Screen name="ProfilAutre" component={EcranProfilAutre} />
         </Stack.Navigator>
       </View>
     </NavigationContainer>
