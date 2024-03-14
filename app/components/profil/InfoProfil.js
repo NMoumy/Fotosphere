@@ -2,18 +2,30 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from "react-native";
 import { getInfosUtilisateur } from "../../services/firebase/fonctionUtil";
 import { useNavigation } from "@react-navigation/native";
+import { sAbonner, seDesabonner } from "../../services/firebase/fonctionAbonnement";
 
-export default function InfoProfil({userAutre, estEcranProfilAutre}) {
+export default function InfoProfil({ userAutre, userAutreId, estEcranProfilAutre }) {
   const navigation = useNavigation();
 
   const [user, setUser] = useState(null);
   const userEcran = estEcranProfilAutre ? userAutre : user;
+  const [estAbonne, setEstAbonne] = useState(false);
 
   useEffect(() => {
     getInfosUtilisateur().then((infosUtilisateur) => {
       setUser(infosUtilisateur);
+      setEstAbonne(infosUtilisateur.abonnements.includes(userAutreId));
     });
   }, []);
+
+  const basculerAbonnement = () => {
+    if (estAbonne) {
+      seDesabonner(userAutreId);
+    } else {
+      sAbonner(userAutreId);
+    }
+    setEstAbonne(!estAbonne);
+  };
 
   return (
     <View style={styles.conteneur}>
@@ -37,9 +49,15 @@ export default function InfoProfil({userAutre, estEcranProfilAutre}) {
           <Text style={{ fontFamily: "Inter-Regular" }}>Abonnements</Text>
         </View>
       </View>
-      <TouchableOpacity style={styles.bouton} onPress={() => navigation.navigate("ModifProfil")}>
-        <Text style={styles.texteBouton}>Modifier le profil</Text>
-      </TouchableOpacity>
+      {estEcranProfilAutre ? (
+        <TouchableOpacity style={estAbonne ? styles.boutonDesabonne : styles.bouton } onPress={basculerAbonnement}>
+          <Text style={estAbonne ? styles.texteBoutonDesabonne : styles.texteBouton}>{estAbonne ? "Se désabonner" : "Suivre"}</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity style={styles.bouton} onPress={() => navigation.navigate("ModifProfil")}>
+          <Text style={styles.texteBouton}>Modifier le profil</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
@@ -115,6 +133,20 @@ const styles = StyleSheet.create({
   texteBouton: {
     fontSize: 14,
     color: "white",
+    fontFamily: "Inter-SemiBold",
+  },
+  boutonDesabonne: {
+    backgroundColor: "white",
+    borderWidth: 2,
+    borderColor: "#EA5D55",
+    width: "40%",
+    paddingVertical: 4,
+    borderRadius: 5,
+    alignItems: "center",
+  },
+  texteBoutonDesabonne: {
+    fontSize: 14,
+    color: "#EA5D55",
     fontFamily: "Inter-SemiBold",
   },
 });

@@ -1,7 +1,7 @@
 // import { getDownloadURL, ref, uploadString, getStorage, uploadBytes } from "firebase/storage";
 import { uploadImage } from "./fonctionData";
 import { auth, firestore } from "./init";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 
 // Fonction pour obtenir les informations de l'utilisateur actuellement connecté
 export const getInfosUtilisateur = async () => {
@@ -72,3 +72,19 @@ export async function obtenirDataAutreUser(userId) {
     return null;
   }
 }
+/** En temps reel */
+// export function obtenirDataAutreUser(userId, callback) {
+//   const userRef = doc(firestore, "utilisateurs", userId);
+
+//   const unsubscribe = onSnapshot(userRef, (userSnap) => {
+//     if (userSnap.exists()) {
+//       callback(userSnap.data());
+//     } else {
+//       console.log("No user!");
+//       callback(null);
+//     }
+//   });
+
+//   // Retourner la fonction de désinscription pour pouvoir arrêter l'écoute
+//   return unsubscribe;
+// }
