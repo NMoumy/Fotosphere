@@ -1,4 +1,4 @@
-import { View, Text, Platform, StatusBar, SafeAreaView, StyleSheet } from "react-native";
+import { View, Text, Platform, StatusBar, SafeAreaView, StyleSheet, RefreshControl } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import NavBar, { navBarIcons } from "../components/main/NavBar";
 import InfoProfil from "../components/profil/InfoProfil";
@@ -11,14 +11,20 @@ export default function EcranProfilAutre({ navigation, route }) {
   const nonProfil = "nonProfil";
 
   const [userData, setUserData] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
   const { userId } = route.params;
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const data = await obtenirDataAutreUser(userId);
-      setUserData(data);
-    };
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    fetchUserData().then(() => setRefreshing(false));
+  }, [userId]);
 
+  const fetchUserData = async () => {
+    const data = await obtenirDataAutreUser(userId);
+    setUserData(data);
+  };
+
+  useEffect(() => {
     fetchUserData();
   }, [userId]);
 
@@ -29,7 +35,14 @@ export default function EcranProfilAutre({ navigation, route }) {
         titre={userData ? userData.pseudo : "Loading..."}
         getEranProfil={nonProfil}
       />
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      >
         <InfoProfil userAutre={userData} userAutreId={userId} estEcranProfilAutre={true}/>
         <PostProfil userAutre={userId} estEcranProfilAutre={true}/>
       </ScrollView>
@@ -37,7 +50,6 @@ export default function EcranProfilAutre({ navigation, route }) {
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   conteneur: {
     flex: 1,

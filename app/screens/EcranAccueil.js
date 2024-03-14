@@ -1,18 +1,20 @@
-import { SafeAreaView, StyleSheet, Text, View, Platform, StatusBar, ScrollView, Button } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View, Platform, StatusBar, ScrollView, RefreshControl, FlatList } from "react-native";
 import Entete from "../components/main/Entete";
 import CategoriePhoto from "../components/main/CategoriePhoto";
 import Post from "../components/main/Post";
 import NavBar, { navBarIcons } from "../components/main/NavBar";
 import { obtenirTousLesPosts } from "../services/firebase/fonctionPost"; // Assurez-vous que le chemin est correct
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function EcranAccueil() {
   const [posts, setPosts] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    const desabonner = obtenirTousLesPosts(
+  const chargerPosts = () => {
+    return obtenirTousLesPosts(
       (tousLesPosts) => {
         setPosts(tousLesPosts);
+        setRefreshing(false);
       },
       (postId, utilisateurMisAJour) => {
         setPosts((postsActuels) => {
@@ -26,20 +28,37 @@ export default function EcranAccueil() {
         });
       }
     );
+  };
 
-    // Nettoyer l'effet en se désabonner de l'écouteur de snapshot lorsque le composant est démonté
+  useEffect(() => {
+    const desabonner = chargerPosts();
     return () => desabonner();
   }, []);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    chargerPosts();
+  }, []);
+
+  const renderItem = ({ item }) => (
+    <Post key={item.id} post={item} estEcranAccueil={true} />
+  );
 
   return (
     <SafeAreaView style={styles.conteneur}>
       <Entete />
       <CategoriePhoto />
-      <ScrollView style={styles.conteneurPosts}>
-        {posts.map((post, index) => (
-          <Post key={index} post={post} estEcranAccueil={true} />
-        ))}
-      </ScrollView>
+      <FlatList
+        data={posts}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      />
       <NavBar icons={navBarIcons} />
     </SafeAreaView>
   );

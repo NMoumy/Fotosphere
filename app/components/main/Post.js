@@ -7,7 +7,8 @@ import { useNavigation } from "@react-navigation/native";
 import { auth } from "../../services/firebase/init";
 import { basculerLike, obtenirLikes } from "../../services/firebase/fonctionLike";
 
-export default function Post({ post, estEcranAccueil, user }) {
+const Post = ({ post, estEcranAccueil, user }) => {
+
   const [activeLike, setActiveLike] = useState(false);
   const [nombreLikes, setNombreLikes] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -150,6 +151,8 @@ export default function Post({ post, estEcranAccueil, user }) {
     </View>
   );
 }
+
+export default React.memo(Post);
 
 const styles = StyleSheet.create({
   conteneur: {

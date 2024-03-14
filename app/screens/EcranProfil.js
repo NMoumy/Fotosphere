@@ -1,5 +1,5 @@
-import { Platform, StatusBar, SafeAreaView, StyleSheet } from "react-native";
-import React, { useEffect, useState } from "react";
+import { Platform, StatusBar, SafeAreaView, StyleSheet, RefreshControl } from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
 import NavBar, { navBarIcons } from "../components/main/NavBar";
 import InfoProfil from "../components/profil/InfoProfil";
 import PostProfil from "../components/profil/PostProfil";
@@ -9,17 +9,30 @@ import { getInfosUtilisateur } from "../services/firebase/fonctionUtil";
 
 export default function EcranProfil({ navigation }) {
   const [user, setUser] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const chargerInfosUtilisateur = useCallback(async () => {
+    setRefreshing(true);
+    const infosUtilisateur = await getInfosUtilisateur();
+    setUser(infosUtilisateur);
+    setRefreshing(false);
+  }, []);
 
   useEffect(() => {
-    getInfosUtilisateur().then((infosUtilisateur) => {
-      setUser(infosUtilisateur);
-    });
-  }, []);
+    chargerInfosUtilisateur();
+  }, [chargerInfosUtilisateur]);
 
   return (
     <SafeAreaView style={styles.conteneur}>
       <EnteteRetour navigation={navigation} titre={user?.pseudo} getEranProfil={user?.pseudo} />
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={chargerInfosUtilisateur}
+          />
+        }
+      >
         <InfoProfil estEcranProfilAutre={false}/>
         <PostProfil estEcranProfilAutre={false}/>
       </ScrollView>
