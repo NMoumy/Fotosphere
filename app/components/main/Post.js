@@ -5,10 +5,11 @@ import { ajouterCommentaire, obtenirCommentaires } from "../../services/firebase
 import { getInfosUtilisateur } from "../../services/firebase/fonctionUtil";
 import { useNavigation } from "@react-navigation/native";
 import { auth } from "../../services/firebase/init";
+import { basculerLike, obtenirLikes } from "../../services/firebase/fonctionLike";
 
 export default function Post({ post, estEcranAccueil, user }) {
   const [activeLike, setActiveLike] = useState(false);
-  const [nombreLikes, setNombreLikes] = useState(post.likes);
+  const [nombreLikes, setNombreLikes] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [nouveauCommentaire, setNouveauCommentaire] = useState("");
   const [commentaires, setCommentaires] = useState([]);
@@ -18,10 +19,14 @@ export default function Post({ post, estEcranAccueil, user }) {
   const userEcran = estEcranAccueil ? post.utilisateur : user;
 
   useEffect(() => {
-    const unsubscribe = obtenirCommentaires(post.id, setCommentaires);
+    const unsubscribeCommentaires = obtenirCommentaires(post.id, setCommentaires);
+    const unsubscribeLikes = obtenirLikes(post.id, setNombreLikes);
 
     // Arrêter d'écouter les modifications lorsque le composant est démonté
-    return () => unsubscribe();
+    return () => {
+      unsubscribeCommentaires();
+      unsubscribeLikes();
+    };
   }, [post.id]);
 
   const soumettreCommentaire = async () => {
@@ -35,12 +40,18 @@ export default function Post({ post, estEcranAccueil, user }) {
     }
   };
 
-  const basculerLike = () => {
-    setActiveLike(!activeLike);
-    if (!activeLike) {
-      setNombreLikes(nombreLikes + 1);
-    } else {
-      setNombreLikes(nombreLikes - 1);
+  useEffect(() => {
+    // Vérifier si l'utilisateur actuel a aimé le post lors du chargement du composant
+    setActiveLike(post.likes.includes(auth.currentUser.uid));
+  }, [post.likes]);
+
+  const gererLike = async () => {
+    try {
+      await basculerLike(post.id, auth.currentUser.uid);
+      // Basculer l'état activeLike
+      setActiveLike(!activeLike);
+    } catch (erreur) {
+      console.error("Erreur lors de la bascule du like:", erreur);
     }
   };
 
@@ -92,7 +103,7 @@ export default function Post({ post, estEcranAccueil, user }) {
         <Text style={{ fontFamily: "Inter-Regular", color: "#222222" }}>{post.description}</Text>
 
         <View style={styles.conteneurIcons}>
-          <TouchableOpacity onPress={basculerLike} style={styles.conteneurLikes}>
+          <TouchableOpacity onPress={gererLike} style={styles.conteneurLikes}>
             <Image
               source={
                 activeLike ? require("../../assets/images/coeur-rempli.png") : require("../../assets/images/coeur.png")
