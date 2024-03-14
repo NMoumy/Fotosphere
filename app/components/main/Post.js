@@ -4,6 +4,7 @@ import Commentaires from "./Commentaires";
 import { ajouterCommentaire, obtenirCommentaires } from "../../services/firebase/fonctionCommentaire";
 import { getInfosUtilisateur } from "../../services/firebase/fonctionUtil";
 import { useNavigation } from "@react-navigation/native";
+import { auth } from "../../services/firebase/init";
 
 export default function Post({ post, estEcranAccueil, user }) {
   const [activeLike, setActiveLike] = useState(false);
@@ -54,7 +55,13 @@ export default function Post({ post, estEcranAccueil, user }) {
   return (
     <View style={styles.conteneur}>
       <View style={styles.entetePost}>
-        <TouchableOpacity onPress={() => navigation.navigate("ProfilAutre", { userId: post.userId })}>
+        <TouchableOpacity onPress={() => {
+          if (post.userId === auth.currentUser.uid) {
+            navigation.navigate("Profil");
+          } else {
+            navigation.navigate("ProfilAutre", { userId: post.userId });
+          }
+        }}>
           <View style={styles.infoProfil}>
             <Image
               source={

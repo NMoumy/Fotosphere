@@ -21,16 +21,6 @@ export default function EcranProfilAutre({ navigation, route }) {
 
     fetchUserData();
   }, [userId]);
-  
-  /** En temps reel */
-  // useEffect(() => {
-  //   const unsubscribe = obtenirDataAutreUser(userId, (data) => {
-  //     setUserData(data);
-  //   });
-
-  //   // Arrêter l'écoute lorsque le composant est démonté
-  //   return () => unsubscribe();
-  // }, [userId]);
 
   return (
     <SafeAreaView style={styles.conteneur}>
