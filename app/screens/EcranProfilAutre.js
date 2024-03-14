@@ -33,7 +33,7 @@ export default function EcranProfilAutre({ navigation, route }) {
         <InfoProfil userAutre={userData} estEcranProfilAutre={true}/>
         <PostProfil userAutre={userId} estEcranProfilAutre={true}/>
       </ScrollView>
-      <NavBar icons={navBarIcons} />
+      {/* <NavBar icons={navBarIcons} /> */}
     </SafeAreaView>
   );
 }

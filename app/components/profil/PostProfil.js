@@ -3,7 +3,7 @@ import { View, Image, FlatList, StyleSheet, TouchableOpacity, Animated, Dimensio
 import { useNavigation } from "@react-navigation/native";
 import { obtenirPostsParUserId, obtenirPostsUtilisateurConnecte } from "../../services/firebase/fonctionPost";
 
-export default function PostProfil({userAutre, estEcranProfilAutre}) {
+export default function PostProfil({ userAutre, estEcranProfilAutre }) {
   const [categorieSelectionnee, setCategorieSelectionnee] = useState(0);
   const positionBarre = useState(new Animated.Value(0))[0];
   const [posts, setPosts] = useState([]);
@@ -23,10 +23,8 @@ export default function PostProfil({userAutre, estEcranProfilAutre}) {
   }, [userAutre, estEcranProfilAutre]);
 
   const gererClick = (post) => {
-    navigation.navigate("PostDetail", { post });
+    navigation.navigate("PostDetail", { post, userAutre: userAutre });
   };
-
-  console.log("userAutre", userAutre);
 
   const selectionnerCategorie = (index) => {
     setCategorieSelectionnee(index);

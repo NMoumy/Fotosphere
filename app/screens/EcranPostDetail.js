@@ -2,32 +2,49 @@ import { Platform, StatusBar, SafeAreaView, StyleSheet, FlatList } from "react-n
 import React, { useEffect, useState, useRef } from "react";
 import EnteteRetour from "../components/nouveauPost/EnteteRetour";
 import { getInfosUtilisateur } from "../services/firebase/fonctionUtil";
-import { obtenirPostsUtilisateurConnecte } from "../services/firebase/fonctionPost";
+import { obtenirPostsUtilisateurConnecte, obtenirPostsParUserId } from "../services/firebase/fonctionPost";
+import { obtenirDataAutreUser } from "../services/firebase/fonctionUtil";
 import NavBar, { navBarIcons } from "../components/main/NavBar";
 import Post from "../components/main/Post";
 
 export default function EcranProfilDetail({ navigation, route }) {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
-  const flatListRef = useRef(); // Ajoutez cette ligne
+  const flatListRef = useRef();
+
+  const { userAutre } = route.params;
 
   useEffect(() => {
-    getInfosUtilisateur().then((infosUtilisateur) => {
-      setUser(infosUtilisateur);
-    });
+    let unsubscribe;
 
-    const unsubscribe = obtenirPostsUtilisateurConnecte(setPosts);
-    return () => unsubscribe();
-  }, []);
+    if (userAutre) {
+      obtenirDataAutreUser(userAutre).then((data) => {
+        setUser(data);
+      });
+
+      unsubscribe = obtenirPostsParUserId(userAutre, (data) => {
+        setPosts(data);
+      });
+    } else {
+      getInfosUtilisateur().then((infosUtilisateur) => {
+        setUser(infosUtilisateur);
+      });
+
+      unsubscribe = obtenirPostsUtilisateurConnecte(setPosts);
+    }
+
+    return () => unsubscribe && unsubscribe();
+  }, [userAutre]);
 
   useEffect(() => {
-    if (route.params?.post) {
+    if (route.params?.post && posts) {
       const index = posts.findIndex((post) => post.id === route.params.post.id);
       if (index >= 0) {
         flatListRef.current?.scrollToIndex({ index });
       }
     }
   }, [posts, route.params?.post]);
+  // console.log(posts.id);
 
   return (
     <SafeAreaView style={styles.conteneur}>
@@ -45,7 +62,7 @@ export default function EcranProfilDetail({ navigation, route }) {
           });
         }}
       />
-      <NavBar icons={navBarIcons} />
+      {/* <NavBar icons={navBarIcons} /> */}
     </SafeAreaView>
   );
 }
