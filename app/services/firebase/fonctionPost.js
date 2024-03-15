@@ -10,6 +10,7 @@ import {
   serverTimestamp,
   where,
   limit,
+  getDocs,
 } from "firebase/firestore";
 import { uploadImage } from "./fonctionData";
 
@@ -38,63 +39,23 @@ export const creerPost = async (userId, image, description) => {
 };
 
 // Fonction pour obtenir tous les posts
-export const obtenirTousLesPosts = (rappelPost, rappelUtilisateur) => {
-  let requetePosts = query(collection(firestore, "posts"), orderBy("date", "desc"), limit(10));
-  let desabonnementsUtilisateurs = [];
+export const obtenirTousLesPosts = async () => {
+  let requetePosts = query(collection(firestore, "posts"), orderBy("date", "desc"));
+  const instantane = await getDocs(requetePosts);
+  const tousLesPosts = [];
 
-  const chargerPosts = () => {
-    onSnapshot(requetePosts, async (instantane) => {
-      const tousLesPosts = [];
-      for (let docSnapshot of instantane.docs) {
-        const post = { id: docSnapshot.id, ...docSnapshot.data() };
-        const userRef = doc(firestore, "utilisateurs", post.userId);
-        const userDoc = await getDoc(userRef);
+  for (let docSnapshot of instantane.docs) {
+    const post = { id: docSnapshot.id, ...docSnapshot.data() };
+    const userRef = doc(firestore, "utilisateurs", post.userId);
+    const userDoc = await getDoc(userRef);
 
-        if (userDoc.exists()) {
-          const utilisateur = userDoc.data();
-          tousLesPosts.push({ ...post, utilisateur });
-        }
-      }
+    if (userDoc.exists()) {
+      const utilisateur = userDoc.data();
+      tousLesPosts.push({ ...post, utilisateur });
+    }
+  }
 
-      rappelPost(tousLesPosts);
-
-      // Ajouter un écouteur pour les modifications de chaque utilisateur
-      tousLesPosts.forEach((post) => {
-        const userRef = doc(firestore, "utilisateurs", post.userId);
-        const desabonnementUtilisateur = onSnapshot(userRef, (userDoc) => {
-          if (userDoc.exists()) {
-            const utilisateurMisAJour = userDoc.data();
-            rappelUtilisateur(post.id, utilisateurMisAJour);
-          }
-        });
-
-        desabonnementsUtilisateurs.push(desabonnementUtilisateur);
-      });
-    });
-  };
-
-  chargerPosts();
-
-  // Retourner une fonction pour se désabonner de tous les écouteurs
-  return () => {
-    desabonnementsUtilisateurs.forEach((desabonnement) => desabonnement());
-  };
-};
-
-// Fonction pour obtenir les posts de l'utilisateur connecté
-export const obtenirPostsUtilisateurConnecte = (callback) => {
-  const userId = auth.currentUser.uid;
-
-  // Obtenir les posts de l'utilisateur connecté, ordonnés par date
-  const userPostsQuery = query(collection(firestore, "posts"), where("userId", "==", userId), orderBy("date", "desc"));
-
-  return onSnapshot(userPostsQuery, (snapshot) => {
-    const posts = snapshot.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-    callback(posts);
-  });
+  return tousLesPosts;
 };
 
 // Fonction pour obtenir les posts d'un utilisateur spécifique

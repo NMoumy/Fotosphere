@@ -45,6 +45,7 @@ export const seDesabonner = async (userId) => {
     }
 };
 
+// Fonction pour obtenir les abonnements de l'utilisateur actuel
 export const obtenirAbonnements = async () => {
     try {
         const idUtilisateur = auth.currentUser.uid;

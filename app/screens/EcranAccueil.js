@@ -1,4 +1,14 @@
-import { SafeAreaView, StyleSheet, Text, View, Platform, StatusBar, ScrollView, RefreshControl, FlatList } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  View,
+  Platform,
+  StatusBar,
+  ScrollView,
+  RefreshControl,
+  FlatList,
+} from "react-native";
 import Entete from "../components/main/Entete";
 import CategoriePhoto from "../components/main/CategoriePhoto";
 import Post from "../components/main/Post";
@@ -12,77 +22,60 @@ export default function EcranAccueil() {
   const [refreshing, setRefreshing] = useState(false);
   const [categorieSelectionnee, setCategorieSelectionnee] = useState(0); // Ajoutez cet état
 
-  const onCategorieChange = (index) => { // Ajoutez cette fonction
+  const flatListRef = React.useRef(); // Ajoutez cette ligne
+
+  const onCategorieChange = (index) => {
     setCategorieSelectionnee(index);
+    flatListRef.current.scrollToOffset({ animated: true, offset: 0 }); // Ajoutez cette ligne
   };
-  const chargerPosts = () => {
-    return obtenirTousLesPosts(
-      (tousLesPosts) => {
-        let postsFiltres;
-        switch (categorieSelectionnee) {
-          case 0: // Nouveautés
-            postsFiltres = tousLesPosts; // Pas de filtrage pour les nouveautés
-            break;
-          case 1: // Populaires
-            postsFiltres = [...tousLesPosts].sort((a, b) => b.likes.length - a.likes.length);
-            break;
-          case 2: // Abonnements
-            obtenirAbonnements().then((abonnements) => {
-              postsFiltres = tousLesPosts.filter((post) => {
-                return abonnements.includes(post.userId);
-              });
-              setPosts(postsFiltres);
-              setRefreshing(false);
-            });
-            break;
-        }
-  
-        setPosts(postsFiltres);
-        setRefreshing(false);
-      },
 
-      (postId, utilisateurMisAJour) => {
-        setPosts((postsActuels) => {
-          const index = postsActuels.findIndex((post) => post.id === postId);
-          if (index !== -1) {
-            const nouveauPost = { ...postsActuels[index], utilisateur: utilisateurMisAJour };
-            return [...postsActuels.slice(0, index), nouveauPost, ...postsActuels.slice(index + 1)];
-          } else {
-            return postsActuels;
-          }
+  const chargerPosts = async () => {
+    let tousLesPosts = await obtenirTousLesPosts();
+    let postsFiltres;
+
+    switch (categorieSelectionnee) {
+      case 0: // Nouveautés
+        postsFiltres = tousLesPosts; // Pas de filtrage pour les nouveautés
+        break;
+      case 1: // Populaires
+        postsFiltres = [...tousLesPosts].sort((a, b) => b.likes.length - a.likes.length);
+        break;
+      case 2: // Abonnements
+        const abonnements = await obtenirAbonnements();
+        postsFiltres = tousLesPosts.filter((post) => {
+          return abonnements.includes(post.userId);
         });
-      }
-    );
-  };
+        break;
+    }
 
-  useEffect(() => {
-    const desabonner = chargerPosts();
-    return () => desabonner();
-  }, [categorieSelectionnee]);
+    setPosts(postsFiltres); // Mettez à jour les posts ici
+    setRefreshing(false);
+  };
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
     chargerPosts();
   }, [categorieSelectionnee]); // Ajoutez categorieSelectionnee comme dépendance
 
-  const renderItem = ({ item }) => (
-    <Post key={item.id} post={item} estEcranAccueil={true} />
-  );
+  useEffect(() => {
+    onRefresh();
+  }, [onRefresh]); // Appellez onRefresh au montage du composant
+
+  const renderItem = ({ item }) => <Post key={item.id} post={item} estEcranAccueil={true} />;
 
   return (
     <SafeAreaView style={styles.conteneur}>
-      <Entete /> 
-      <CategoriePhoto onCategorieChange= {onCategorieChange}/>
+      <Entete />
+      <CategoriePhoto onCategorieChange={onCategorieChange} />
       <FlatList
+        ref={flatListRef}
         data={posts}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }
+        removeClippedSubviews={true}
+        maxToRenderPerBatch={3}
+        updateCellsBatchingPeriod={50}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
       />
       <NavBar icons={navBarIcons} />
     </SafeAreaView>

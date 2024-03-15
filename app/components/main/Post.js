@@ -8,7 +8,6 @@ import { auth } from "../../services/firebase/init";
 import { basculerLike, obtenirLikes } from "../../services/firebase/fonctionLike";
 
 const Post = ({ post, estEcranAccueil, user }) => {
-
   const [activeLike, setActiveLike] = useState(false);
   const [nombreLikes, setNombreLikes] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -67,13 +66,15 @@ const Post = ({ post, estEcranAccueil, user }) => {
   return (
     <View style={styles.conteneur}>
       <View style={styles.entetePost}>
-        <TouchableOpacity onPress={() => {
-          if (post.userId === auth.currentUser.uid) {
-            navigation.navigate("Profil");
-          } else {
-            navigation.navigate("ProfilAutre", { userId: post.userId });
-          }
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            if (post.userId === auth.currentUser.uid) {
+              navigation.navigate("Profil");
+            } else {
+              navigation.navigate("ProfilAutre", { userId: post.userId });
+            }
+          }}
+        >
           <View style={styles.infoProfil}>
             <Image
               source={
@@ -150,7 +151,7 @@ const Post = ({ post, estEcranAccueil, user }) => {
       </View>
     </View>
   );
-}
+};
 
 export default React.memo(Post);
 
