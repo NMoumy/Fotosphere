@@ -25,16 +25,9 @@ export default function EcranProfil({ navigation }) {
   return (
     <SafeAreaView style={styles.conteneur}>
       <EnteteRetour navigation={navigation} titre={user?.pseudo} getEranProfil={user?.pseudo} />
-      <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={chargerInfosUtilisateur}
-          />
-        }
-      >
-        <InfoProfil estEcranProfilAutre={false}/>
-        <PostProfil estEcranProfilAutre={false}/>
+      <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={chargerInfosUtilisateur} />}>
+        <InfoProfil estEcranProfilAutre={false} />
+        <PostProfil estEcranProfilAutre={false} />
       </ScrollView>
       <NavBar icons={navBarIcons} />
     </SafeAreaView>

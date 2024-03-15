@@ -58,6 +58,22 @@ export const obtenirTousLesPosts = async () => {
   return tousLesPosts;
 };
 
+// Fonction pour obtenir les posts de l'utilisateur connecté
+export const obtenirPostsUtilisateurConnecte = (callback) => {
+  const userId = auth.currentUser.uid;
+
+  // Obtenir les posts de l'utilisateur connecté, ordonnés par date
+  const userPostsQuery = query(collection(firestore, "posts"), where("userId", "==", userId), orderBy("date", "desc"));
+
+  return onSnapshot(userPostsQuery, (snapshot) => {
+    const posts = snapshot.docs.map((doc) => ({
+      ...doc.data(),
+      id: doc.id,
+    }));
+    callback(posts);
+  });
+};
+
 // Fonction pour obtenir les posts d'un utilisateur spécifique
 export const obtenirPostsParUserId = (userId, callback) => {
   // Obtenir les posts de l'utilisateur spécifié, ordonnés par date

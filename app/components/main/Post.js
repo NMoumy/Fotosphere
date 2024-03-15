@@ -75,17 +75,23 @@ const Post = ({ post, estEcranAccueil, user }) => {
             }
           }}
         >
-          <View style={styles.infoProfil}>
-            <Image
-              source={
-                typeof userEcran.photoProfil === "string"
-                  ? { uri: userEcran.photoProfil }
-                  : require("../../assets/images/image-defaut.jpg")
-              }
-              style={{ width: 40, height: 40, borderRadius: 50, borderWidth: 1, borderColor: "#D9D9D9" }}
-            />
-            <Text style={{ fontFamily: "Inter-Bold", color: "#222222" }}>{userEcran.pseudo}</Text>
-          </View>
+          {
+            userEcran ? (
+              <View style={styles.infoProfil}>
+                <Image
+                  source={
+                    typeof userEcran.photoProfil === "string"
+                      ? { uri: userEcran.photoProfil }
+                      : require("../../assets/images/image-defaut.jpg")
+                  }
+                  style={{ width: 40, height: 40, borderRadius: 50, borderWidth: 1, borderColor: "#D9D9D9" }}
+                />
+                <Text style={{ fontFamily: "Inter-Bold", color: "#222222" }}>{userEcran.pseudo}</Text>
+              </View>
+            ) : (
+              <Text>Chargement...</Text>
+            )
+          }
         </TouchableOpacity>
         <Text style={{ color: "#7C8089", fontFamily: "Inter-Regular" }}>
           {post.date ? new Date(post.date.seconds * 1000).toLocaleDateString("fr-CA") : "Loading..."}

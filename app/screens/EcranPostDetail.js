@@ -4,7 +4,6 @@ import EnteteRetour from "../components/nouveauPost/EnteteRetour";
 import { getInfosUtilisateur } from "../services/firebase/fonctionUtil";
 import { obtenirPostsUtilisateurConnecte, obtenirPostsParUserId } from "../services/firebase/fonctionPost";
 import { obtenirDataAutreUser } from "../services/firebase/fonctionUtil";
-import NavBar, { navBarIcons } from "../components/main/NavBar";
 import Post from "../components/main/Post";
 
 export default function EcranProfilDetail({ navigation, route }) {
@@ -44,7 +43,6 @@ export default function EcranProfilDetail({ navigation, route }) {
       }
     }
   }, [posts, route.params?.post]);
-  // console.log(posts.id);
 
   return (
     <SafeAreaView style={styles.conteneur}>
@@ -55,6 +53,7 @@ export default function EcranProfilDetail({ navigation, route }) {
         style={{ backgroundColor: "#FAFAFA" }}
         keyExtractor={(post) => post.id}
         renderItem={({ item: post }) => <Post post={post} user={user} estEcranAccueil={false} />}
+        removeClippedSubviews={true}
         onScrollToIndexFailed={(info) => {
           const wait = new Promise((resolve) => setTimeout(resolve, 500));
           wait.then(() => {
@@ -62,7 +61,6 @@ export default function EcranProfilDetail({ navigation, route }) {
           });
         }}
       />
-      {/* <NavBar icons={navBarIcons} /> */}
     </SafeAreaView>
   );
 }
