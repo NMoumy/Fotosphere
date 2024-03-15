@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, FlatList, StyleSheet, TouchableOpacity, Animated, Dimensions, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { obtenirPostsParUserId, obtenirPostsUtilisateurConnecte } from "../../services/firebase/fonctionPost";
+import { obtenirPostsAimesParUtilisateur, obtenirPostsParUserId, obtenirPostsUtilisateurConnecte } from "../../services/firebase/fonctionPost";
+import { auth } from "../../services/firebase/init";
 
 export default function PostProfil({ userAutre, estEcranProfilAutre }) {
   const [categorieSelectionnee, setCategorieSelectionnee] = useState(0);
   const positionBarre = useState(new Animated.Value(0))[0];
   const [posts, setPosts] = useState([]);
   const navigation = useNavigation();
+  const [postsAimes, setPostsAimes] = useState([]);
+  const [postsAffiches, setPostsAffiches] = useState([]);
 
   useEffect(() => {
     let unsubscribe;
@@ -21,6 +24,24 @@ export default function PostProfil({ userAutre, estEcranProfilAutre }) {
     // Se désinscrire de l'écouteur lorsque le composant est démonté
     return () => unsubscribe();
   }, [userAutre, estEcranProfilAutre]);
+
+  useEffect(() => {
+    const obtenirPostsAimes = async () => {
+      const userId = estEcranProfilAutre ? userAutre : auth.currentUser.uid;
+      const posts = await obtenirPostsAimesParUtilisateur(userId);
+      setPostsAimes(posts);
+    };
+
+    obtenirPostsAimes();
+  }, [userAutre, estEcranProfilAutre]);
+
+  useEffect(() => {
+    if (categorieSelectionnee === 0) {
+      setPostsAffiches(posts);
+    } else if (categorieSelectionnee === 1) {
+      setPostsAffiches(postsAimes);
+    }
+  }, [categorieSelectionnee, posts, postsAimes]);
 
   const gererClick = (post) => {
     navigation.navigate("PostDetail", { post, userAutre: userAutre });
@@ -70,7 +91,7 @@ export default function PostProfil({ userAutre, estEcranProfilAutre }) {
 
       <View style={styles.conteneurImages}>
         <FlatList
-          data={posts}
+          data={postsAffiches}
           renderItem={({ item }) => (
             <View style={styles.imageConteneur}>
               <TouchableOpacity onPress={() => gererClick(item)}>

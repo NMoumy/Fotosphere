@@ -87,3 +87,23 @@ export const obtenirPostsParUserId = (userId, callback) => {
     callback(posts);
   });
 };
+
+// Fonction pour obtenir les posts aimés par l'utilisateur actuel ou un autre utilisateur
+export const obtenirPostsAimesParUtilisateur = async (userId) => {
+  const requetePostsAimes = query(collection(firestore, "posts"), where("likes", "array-contains", userId), orderBy("date", "desc"));
+  const instantane = await getDocs(requetePostsAimes);
+  const postsAimes = [];
+
+  for (let docSnapshot of instantane.docs) {
+    const post = { id: docSnapshot.id, ...docSnapshot.data() };
+    const userRef = doc(firestore, "utilisateurs", post.userId);
+    const userDoc = await getDoc(userRef);
+
+    if (userDoc.exists()) {
+      const utilisateur = userDoc.data();
+      postsAimes.push({ ...post, utilisateur });
+    }
+  }
+
+  return postsAimes;
+};
