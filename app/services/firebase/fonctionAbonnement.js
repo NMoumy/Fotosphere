@@ -1,4 +1,4 @@
-import { updateDoc, arrayUnion, arrayRemove, doc, onSnapshot } from "firebase/firestore";
+import { updateDoc, arrayUnion, arrayRemove, doc, onSnapshot, getDoc } from "firebase/firestore";
 import { auth, firestore } from "./init";
 
 // Fonction pour s'abonner à un autre utilisateur
@@ -41,6 +41,22 @@ export const seDesabonner = async (userId) => {
         });
     } catch (erreur) {
         console.error("Erreur lors du désabonnement :", erreur);
+        throw erreur;
+    }
+};
+
+export const obtenirAbonnements = async () => {
+    try {
+        const idUtilisateur = auth.currentUser.uid;
+
+        // Obtenir le document de l'utilisateur actuel
+        const refDocUtilisateur = doc(firestore, "utilisateurs", idUtilisateur);
+        const docUtilisateur = await getDoc(refDocUtilisateur);
+
+        // Retourner la liste des abonnements de l'utilisateur actuel
+        return docUtilisateur.data().abonnements;
+    } catch (erreur) {
+        console.error("Erreur lors de l'obtention des abonnements :", erreur);
         throw erreur;
     }
 };

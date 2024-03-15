@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, Animated, Dimensions } from "react-native";
 
-export default function CategoriePhoto() {
+export default function CategoriePhoto({ onCategorieChange }) {
   const [categorieSelectionnee, setCategorieSelectionnee] = useState(0);
   const positionBarre = useState(new Animated.Value(0))[0];
 
@@ -12,6 +12,9 @@ export default function CategoriePhoto() {
       duration: 200,
       useNativeDriver: false,
     }).start();
+
+    // Informer le composant parent de la nouvelle catégorie sélectionnée
+    onCategorieChange(index);
   };
 
   const categories = ["Nouveautés", "Populaires", "Abonnements"];
