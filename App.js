@@ -16,7 +16,7 @@ import EcranProfilAutre from "./app/screens/EcranProfilAutre";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 // Pour la police d'écriture
 SplashScreen.preventAutoHideAsync();
@@ -48,7 +48,6 @@ export default function App() {
     return null;
   }
 
-  
   return (
     <NavigationContainer>
       <View style={styles.container} onLayout={onLayoutRootView}>

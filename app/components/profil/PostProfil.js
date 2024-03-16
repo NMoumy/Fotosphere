@@ -152,12 +152,14 @@ const styles = StyleSheet.create({
   conteneurImages: {
     flex: 1,
     minHeight: 345,
+    flexDirection: "row",
+    justifyContent: "center",
     backgroundColor: "#fafafa",
-    paddingVertical: 10,
   },
 
   imageConteneur: {
-    flex: 1,
+    // flex: 1,
+    width: "32.4%",
     aspectRatio: 1,
     flexDirection: "column",
     margin: 2,
