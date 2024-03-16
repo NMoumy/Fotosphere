@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     width: 40,
   },
   btnParametre: {
-    height: 25,
-    width: 25,
+    height: 28,
+    width: 28,
   },
   texteEntete: {
     fontSize: 16,
