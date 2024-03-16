@@ -36,7 +36,8 @@ export default function FormulaireConnexion() {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.boutonInscription} onPress={() => navigation.navigate("Inscription")}>
-        <Text>Nouveau utilisateur ? Inscrit toi</Text>
+        <Text>Nouveau utilisateur ? </Text>
+        <Text style={{color: "#F27059"}}>Inscrit toi</Text>
       </TouchableOpacity>
     </View>
   );
@@ -80,5 +81,8 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontFamily: "Inter-Bold",
   },
-  boutonInscription: {},
+  boutonInscription: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
 });

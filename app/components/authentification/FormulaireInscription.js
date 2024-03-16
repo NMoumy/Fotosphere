@@ -24,7 +24,7 @@ export default function FormulaireInscription() {
       };
       await creerUtilisateur(courriel, motDePasse, infosUtilisateur);
       navigation.navigate("Accueil");
-    } catch (error) { 
+    } catch (error) {
       // console.error("Erreur lors de l'inscription : ", error);
       alert("Une erreur est survenue lors de l'inscription!");
     }
@@ -47,7 +47,8 @@ export default function FormulaireInscription() {
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.boutonConnexion} onPress={() => navigation.navigate("Connexion")}>
-        <Text>Déjà un compte ? Connecte-toi</Text>
+        <Text>Déjà un compte ? </Text>
+        <Text style={{ color: "#F27059" }}>Connecte-toi</Text>
       </TouchableOpacity>
     </View>
   );
@@ -91,5 +92,8 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontFamily: "Inter-Bold",
   },
-  boutonConnexion: {},
+  boutonConnexion: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
 });
