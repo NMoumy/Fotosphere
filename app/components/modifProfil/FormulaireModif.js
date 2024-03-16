@@ -35,7 +35,7 @@ export default function FormulaireModif() {
       alert("Profil mis à jour avec succès !");
       navigation.navigate("Profil");
     } catch (error) {
-      console.error("Erreur lors de la mise à jour du profil :", error);
+      // console.error("Erreur lors de la mise à jour du profil :", error);
       alert("Erreur lors de la mise à jour du profil. Veuillez réessayer.");
     }
   };

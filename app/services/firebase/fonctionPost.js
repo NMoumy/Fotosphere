@@ -107,3 +107,13 @@ export const obtenirPostsAimesParUtilisateur = async (userId) => {
 
   return postsAimes;
 };
+
+export const obtenirNombrePostsParUserId = (userId) => {
+  return new Promise((resolve, reject) => {
+    const userPostsQuery = query(collection(firestore, "posts"), where("userId", "==", userId), orderBy("date", "desc"));
+
+    onSnapshot(userPostsQuery, (snapshot) => {
+      resolve(snapshot.size);
+    }, reject);
+  });
+};

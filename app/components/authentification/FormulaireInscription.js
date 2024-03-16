@@ -23,11 +23,10 @@ export default function FormulaireInscription() {
         bio: "Ajouter une bio",
       };
       await creerUtilisateur(courriel, motDePasse, infosUtilisateur);
-      // L'utilisateur a été créé avec succès, naviguer vers l'écran modifProfil
       navigation.navigate("Accueil");
     } catch (error) { 
-      // Une erreur s'est produite lors de la création de l'utilisateur
       console.error("Erreur lors de l'inscription : ", error);
+      alert("Une erreur est survenue lors de l'inscription!");
     }
   };
 

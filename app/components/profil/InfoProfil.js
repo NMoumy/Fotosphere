@@ -3,6 +3,8 @@ import { View, Text, Image, StyleSheet, Button, TouchableOpacity } from "react-n
 import { getInfosUtilisateur } from "../../services/firebase/fonctionUtil";
 import { useNavigation } from "@react-navigation/native";
 import { sAbonner, seDesabonner } from "../../services/firebase/fonctionAbonnement";
+import { obtenirNombrePostsParUserId } from "../../services/firebase/fonctionPost";
+import { auth } from "../../services/firebase/init";
 
 export default function InfoProfil({ userAutre, userAutreId, estEcranProfilAutre }) {
   const navigation = useNavigation();
@@ -10,13 +12,22 @@ export default function InfoProfil({ userAutre, userAutreId, estEcranProfilAutre
   const [user, setUser] = useState(null);
   const userEcran = estEcranProfilAutre ? userAutre : user;
   const [estAbonne, setEstAbonne] = useState(false);
+  const [nombrePosts, setNombrePosts] = useState(0);
 
   useEffect(() => {
     getInfosUtilisateur().then((infosUtilisateur) => {
       setUser(infosUtilisateur);
       setEstAbonne(infosUtilisateur.abonnements.includes(userAutreId));
+
+      const id = estEcranProfilAutre ? userAutreId : auth.currentUser.uid;
+
+      if (id) {
+        obtenirNombrePostsParUserId(id).then((nombrePosts) => {
+          setNombrePosts(nombrePosts);
+        });
+      }
     });
-  }, []);
+  }, [userAutreId, estEcranProfilAutre]);
 
   const basculerAbonnement = () => {
     if (estAbonne) {
@@ -37,21 +48,23 @@ export default function InfoProfil({ userAutre, userAutreId, estEcranProfilAutre
       <Text style={styles.textbio}>{userEcran?.bio}</Text>
       <View style={styles.conteneurStatus}>
         <View style={styles.infoStatus}>
-          <Text style={{ fontFamily: "Inter-SemiBold", fontSize: 16 }}>126</Text>
+          <Text style={{ fontFamily: "Inter-SemiBold", fontSize: 16 }}>{nombrePosts}</Text>
           <Text style={{ fontFamily: "Inter-Regular" }}>Publications</Text>
         </View>
         <View style={styles.infoStatus}>
-          <Text style={{ fontFamily: "Inter-SemiBold", fontSize: 16 }}>{userEcran?.abonnes.length}</Text>
+          <Text style={{ fontFamily: "Inter-SemiBold", fontSize: 16 }}>{userEcran ? userEcran.abonnes.length : 0}</Text>
           <Text style={{ fontFamily: "Inter-Regular" }}>Abonnés</Text>
         </View>
         <View style={styles.infoStatus}>
-          <Text style={{ fontFamily: "Inter-SemiBold", fontSize: 16 }}>{userEcran?.abonnements.length}</Text>
+          <Text style={{ fontFamily: "Inter-SemiBold", fontSize: 16 }}>{userEcran ? userEcran.abonnements.length : 0}</Text>
           <Text style={{ fontFamily: "Inter-Regular" }}>Abonnements</Text>
         </View>
       </View>
       {estEcranProfilAutre ? (
-        <TouchableOpacity style={estAbonne ? styles.boutonDesabonne : styles.bouton } onPress={basculerAbonnement}>
-          <Text style={estAbonne ? styles.texteBoutonDesabonne : styles.texteBouton}>{estAbonne ? "Se désabonner" : "Suivre"}</Text>
+        <TouchableOpacity style={estAbonne ? styles.boutonDesabonne : styles.bouton} onPress={basculerAbonnement}>
+          <Text style={estAbonne ? styles.texteBoutonDesabonne : styles.texteBouton}>
+            {estAbonne ? "Se désabonner" : "Suivre"}
+          </Text>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity style={styles.bouton} onPress={() => navigation.navigate("ModifProfil")}>

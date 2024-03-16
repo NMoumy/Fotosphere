@@ -31,7 +31,8 @@ export default function FormulaireConnexion() {
       console.log("User connecter avec succès");
       navigation.navigate("Accueil");
     } catch (error) {
-      console.error("Error pendant la connexion: ", error);
+      // console.error("Error pendant la connexion: ", error);
+      alert("Une erreur est survenue lors de la connexion!");
     }
   };
 

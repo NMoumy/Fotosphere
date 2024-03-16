@@ -26,7 +26,7 @@ async function creerUtilisateur(email, password, infosUtilisateur) {
 
     return user;
   } catch (error) {
-    console.error("Erreur lors de la création de l'utilisateur :", error);
+    // console.error("Erreur lors de la création de l'utilisateur :", error);
     throw error;
   }
 }
@@ -38,7 +38,7 @@ async function connecterUtilisateur(email, password) {
     const user = userCredential.user;
     return user;
   } catch (error) {
-    console.error("Erreur lors de la connexion de l'utilisateur :", error);
+    // console.error("Erreur lors de la connexion de l'utilisateur :", error);
     throw error;
   }
 }

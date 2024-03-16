@@ -21,10 +21,11 @@ export default function AjoutPost() {
       const userId = user.uid;
       const postId = await creerPost(userId, image, description);
       console.log("Post créé avec l'ID :", postId);
-
+      alert("Nouvelle publication ajouter!");
       navigation.navigate("Profil");
     } catch (error) {
       console.error("Erreur lors de la création du post :", error);
+      alert("Une erreur est survenue lors de la création du post!");
     }
   };
 
