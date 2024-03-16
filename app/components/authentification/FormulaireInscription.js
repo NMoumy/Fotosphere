@@ -15,12 +15,12 @@ export default function FormulaireInscription() {
       const infosUtilisateur = {
         pseudo,
         photoProfil:
-          "https://firebasestorage.googleapis.com/v0/b/fotosphere.appspot.com/o/images%2Fdefaut%2Fprofil-defaut.png?alt=media&token=87ac7df8-fe51-4338-99ef-66b35d9b03f8",
+          "https://firebasestorage.googleapis.com/v0/b/fotosphere.appspot.com/o/images%2Fdefaut%2Fprofil-defaut2.png?alt=media&token=ff79c19b-78c1-4072-a6e4-b1ea89be9e60",
         photoCouverture:
           "https://firebasestorage.googleapis.com/v0/b/fotosphere.appspot.com/o/images%2Fdefaut%2Fcouverture-defaut2.png?alt=media&token=f26a8a2e-b5a7-491d-ad58-a20451687dbf",
         abonnes: [],
         abonnements: [],
-        bio: "Ajouter une bio",
+        bio: "Voici ma bio",
       };
       await creerUtilisateur(courriel, motDePasse, infosUtilisateur);
       navigation.navigate("Accueil");

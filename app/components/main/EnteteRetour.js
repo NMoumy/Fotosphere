@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   conteneur: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 1,
+    paddingVertical: 5,
     paddingHorizontal: 10,
     borderBottomWidth: 1,
     borderColor: "#D9D9D9",
