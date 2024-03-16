@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   conteneur: {
     flex: 1,
     backgroundColor: "white",
-    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    // paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   logo: {
     flex: 1,
