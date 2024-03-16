@@ -12,15 +12,15 @@ export default function FormulaireConnexion() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         navigation.navigate("Accueil");
       } else {
         // L'utilisateur est déconnecté
-        console.log('Utilisateur déconnecté');
+        console.log("Utilisateur déconnecté");
       }
     });
-  
+
     // Se désabonner de l'écouteur d'état de connexion lorsque le composant est démonté
     return unsubscribe;
   }, []);

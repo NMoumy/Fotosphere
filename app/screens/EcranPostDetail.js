@@ -9,6 +9,7 @@ import Post from "../components/main/Post";
 export default function EcranProfilDetail({ navigation, route }) {
   const [user, setUser] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [selectionerPostId, setSelectionerPostId] = useState(null);
   const flatListRef = useRef();
 
   const { userAutre } = route.params;
@@ -38,7 +39,8 @@ export default function EcranProfilDetail({ navigation, route }) {
   useEffect(() => {
     if (route.params?.post && posts) {
       const index = posts.findIndex((post) => post.id === route.params.post.id);
-      if (index >= 0) {
+      if (index >= 0 && (selectionerPostId !== route.params.post.id)) {
+        setSelectionerPostId(route.params.post.id);
         flatListRef.current?.scrollToIndex({ index });
       }
     }
