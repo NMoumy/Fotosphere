@@ -25,7 +25,7 @@ export default function FormulaireInscription() {
       await creerUtilisateur(courriel, motDePasse, infosUtilisateur);
       navigation.navigate("Accueil");
     } catch (error) { 
-      console.error("Erreur lors de l'inscription : ", error);
+      // console.error("Erreur lors de l'inscription : ", error);
       alert("Une erreur est survenue lors de l'inscription!");
     }
   };

@@ -35,6 +35,7 @@ export default function Commentaires({ commentaires }) {
 const styles = StyleSheet.create({
   conteneur: {
     padding: 15,
+    maxWidth: "100%",
   },
   commentaire: {
     paddingVertical: 10,
@@ -53,7 +54,9 @@ const styles = StyleSheet.create({
     borderColor: "#D9D9D9",
   },
   commentaireTexte: {
-    marginLeft: 10,
+    // marginLeft: 10,
+    paddingLeft: 10,
+    flexShrink: 1,
   },
   utilisateur: {
     fontFamily: "Inter-SemiBold",

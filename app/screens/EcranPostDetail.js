@@ -46,7 +46,7 @@ export default function EcranProfilDetail({ navigation, route }) {
 
   return (
     <SafeAreaView style={styles.conteneur}>
-      <EnteteRetour navigation={navigation} titre={user?.pseudo} />
+      <EnteteRetour navigation={navigation} titre={user ? user.pseudo : "Chargement..."} />
       <FlatList
         ref={flatListRef}
         data={posts}

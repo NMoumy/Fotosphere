@@ -75,23 +75,21 @@ const Post = ({ post, estEcranAccueil, user }) => {
             }
           }}
         >
-          {
-            userEcran ? (
-              <View style={styles.infoProfil}>
-                <Image
-                  source={
-                    typeof userEcran.photoProfil === "string"
-                      ? { uri: userEcran.photoProfil }
-                      : require("../../assets/images/image-defaut.jpg")
-                  }
-                  style={{ width: 40, height: 40, borderRadius: 50, borderWidth: 1, borderColor: "#D9D9D9" }}
-                />
-                <Text style={{ fontFamily: "Inter-Bold", color: "#222222" }}>{userEcran.pseudo}</Text>
-              </View>
-            ) : (
-              <Text>Chargement...</Text>
-            )
-          }
+          {userEcran ? (
+            <View style={styles.infoProfil}>
+              <Image
+                source={
+                  typeof userEcran.photoProfil === "string"
+                    ? { uri: userEcran.photoProfil }
+                    : require("../../assets/images/image-defaut.jpg")
+                }
+                style={{ width: 40, height: 40, borderRadius: 50, borderWidth: 1, borderColor: "#D9D9D9" }}
+              />
+              <Text style={{ fontFamily: "Inter-Bold", color: "#222222" }}>{userEcran.pseudo}</Text>
+            </View>
+          ) : (
+            <Text style={{ fontFamily: "Inter-Bold", color: "#222222" }}>Chargement...</Text>
+          )}
         </TouchableOpacity>
         <Text style={{ color: "#7C8089", fontFamily: "Inter-Regular" }}>
           {post.date ? new Date(post.date.seconds * 1000).toLocaleDateString("fr-CA") : "Loading..."}
@@ -145,11 +143,15 @@ const Post = ({ post, estEcranAccueil, user }) => {
                 <TextInput
                   type="text"
                   placeholder="Ajouter un commentaire"
+                  maxLength={95}
                   style={styles.ajoutCommentaire}
                   value={nouveauCommentaire}
                   onChangeText={setNouveauCommentaire}
                   onSubmitEditing={soumettreCommentaire}
                 />
+                <TouchableOpacity style={styles.boutonEnvoyer} onPress={soumettreCommentaire}>
+                  <Image source={require("../../assets/images/envoyer.png")} style={{height: 25, width: 25}} />
+                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -258,6 +260,8 @@ const styles = StyleSheet.create({
   conteneurAjoutCommentaire: {
     backgroundColor: "#black",
     justifyContent: "center",
+    flexDirection: "row",
+    gap: 10,
     alignItems: "center",
     padding: 10,
     borderTopWidth: 1,
@@ -267,6 +271,10 @@ const styles = StyleSheet.create({
     backgroundColor: "#F1F1F1",
     padding: 7,
     borderRadius: 25,
-    width: "95%",
+    width: "90%",
+  },
+  boutonEnvoyer: {
+    // width: 10,
+    // height: 10,
   },
 });
