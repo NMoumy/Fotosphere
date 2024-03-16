@@ -43,10 +43,6 @@ export default function PostProfil({ userAutre, estEcranProfilAutre }) {
     }
   }, [categorieSelectionnee, posts, postsAimes]);
 
-  const gererClick = (post) => {
-    navigation.navigate("PostDetail", { post, userAutre: userAutre });
-  };
-
   const selectionnerCategorie = (index) => {
     setCategorieSelectionnee(index);
     Animated.timing(positionBarre, {
@@ -54,6 +50,12 @@ export default function PostProfil({ userAutre, estEcranProfilAutre }) {
       duration: 200,
       useNativeDriver: false,
     }).start();
+  };
+  
+  const gererClick = (post) => {
+    if (categorieSelectionnee === 0) {
+    navigation.navigate("PostDetail", { post, userAutre: userAutre });
+    }
   };
 
   const categories = [
@@ -131,15 +133,6 @@ const styles = StyleSheet.create({
     height: 25,
     resizeMode: "contain",
   },
-  // texte: {
-  //   textAlign: "center",
-  //   fontSize: 14,
-  //   color: "#7C8089",
-  // },
-
-  // texteSelectionne: {
-  //   color: "#EA5D55",
-  // },
 
   barre: {
     position: "absolute",
