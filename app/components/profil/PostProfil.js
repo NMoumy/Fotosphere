@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, Image, FlatList, StyleSheet, TouchableOpacity, Animated, Dimensions, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { obtenirPostsAimesParUtilisateur, obtenirPostsParUserId, obtenirPostsUtilisateurConnecte } from "../../services/firebase/fonctionPost";
+import {
+  obtenirPostsAimesParUtilisateur,
+  obtenirPostsParUserId,
+  obtenirPostsUtilisateurConnecte,
+} from "../../services/firebase/fonctionPost";
 import { auth } from "../../services/firebase/init";
 
 export default function PostProfil({ userAutre, estEcranProfilAutre }) {
@@ -51,10 +55,10 @@ export default function PostProfil({ userAutre, estEcranProfilAutre }) {
       useNativeDriver: false,
     }).start();
   };
-  
+
   const gererClick = (post) => {
     if (categorieSelectionnee === 0) {
-    navigation.navigate("PostDetail", { post, userAutre: userAutre });
+      navigation.navigate("PostDetail", { post, userAutre: userAutre });
     }
   };
 
@@ -152,19 +156,16 @@ const styles = StyleSheet.create({
   conteneurImages: {
     flex: 1,
     minHeight: 345,
+    width: "100%",
     flexDirection: "row",
-    justifyContent: "center",
+    paddingVertical: 5,
+    padding: 2,
     backgroundColor: "#fafafa",
   },
 
   imageConteneur: {
-    // flex: 1,
-    width: "32.4%",
-    aspectRatio: 1,
-    flexDirection: "column",
+    width: Dimensions.get("window").width / 3.12,
     margin: 2,
-    justifyContent: "center",
-    alignItems: "center",
   },
 
   image: {
