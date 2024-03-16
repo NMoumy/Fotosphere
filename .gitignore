@@ -41,4 +41,4 @@ app/services/firebase/data/likes.js
 app/services/firebase/data/postsDB.js
 
 # Firebase
-app/services/firebase/firebaseConfig.js
+# app/services/firebase/firebaseConfig.js
