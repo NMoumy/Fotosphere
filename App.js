@@ -51,7 +51,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <View style={styles.container} onLayout={onLayoutRootView}>
-        <Stack.Navigator initialRouteName="Connexion" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName="Intro" screenOptions={{ headerShown: false }}>
           <Stack.Screen name="Accueil" component={EcranAccueil} />
           <Stack.Screen name="AjoutPost" component={EcranAjoutPost} />
           <Stack.Screen name="Intro" component={EcranIntro} />
