@@ -1,6 +1,6 @@
 import { Text, SafeAreaView, StyleSheet, Platform, StatusBar, TouchableOpacity } from "react-native";
 import React from "react";
-import EnteteRetour from "../components/nouveauPost/EnteteRetour";
+import EnteteRetour from "../components/main/EnteteRetour";
 import { deconnecterUtilisateur } from "../services/firebase/auth";
 
 export default function EcranParametre({ navigation }) {

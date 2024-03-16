@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Platform, StatusBar } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import * as NavigationBar from "expo-navigation-bar";
@@ -26,7 +26,8 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   // Changement de la couleur de la barre de navigation
-  NavigationBar.setBackgroundColorAsync("black");
+  NavigationBar.setBackgroundColorAsync("#fff");
+  NavigationBar.setButtonStyleAsync("dark");
 
   // Chargement des polices
   const [fontsLoaded, fontError] = useFonts({
@@ -49,27 +50,31 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <View style={styles.container} onLayout={onLayoutRootView}>
-        <Stack.Navigator initialRouteName="Intro" screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Accueil" component={EcranAccueil} />
-          <Stack.Screen name="AjoutPost" component={EcranAjoutPost} />
-          <Stack.Screen name="Intro" component={EcranIntro} />
-          <Stack.Screen name="Connexion" component={EcranConnexion} />
-          <Stack.Screen name="Inscription" component={EcranInscription} />
-          <Stack.Screen name="Profil" component={EcranProfil} />
-          <Stack.Screen name="Parametre" component={EcranParametre} />
-          <Stack.Screen name="ModifProfil" component={EcranModifProfil} />
-          <Stack.Screen name="PostDetail" component={EcranPostDetail} />
-          <Stack.Screen name="ProfilAutre" component={EcranProfilAutre} />
-        </Stack.Navigator>
-      </View>
-    </NavigationContainer>
+    <>
+      <StatusBar backgroundColor="#EA5D55" barStyle="light-content" />
+      <NavigationContainer>
+        <View style={styles.container} onLayout={onLayoutRootView}>
+          <Stack.Navigator initialRouteName="Intro" screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Accueil" component={EcranAccueil} />
+            <Stack.Screen name="AjoutPost" component={EcranAjoutPost} />
+            <Stack.Screen name="Intro" component={EcranIntro} />
+            <Stack.Screen name="Connexion" component={EcranConnexion} />
+            <Stack.Screen name="Inscription" component={EcranInscription} />
+            <Stack.Screen name="Profil" component={EcranProfil} />
+            <Stack.Screen name="Parametre" component={EcranParametre} />
+            <Stack.Screen name="ModifProfil" component={EcranModifProfil} />
+            <Stack.Screen name="PostDetail" component={EcranPostDetail} />
+            <Stack.Screen name="ProfilAutre" component={EcranProfilAutre} />
+          </Stack.Navigator>
+        </View>
+      </NavigationContainer>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
 });

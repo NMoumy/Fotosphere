@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import NavBar, { navBarIcons } from "../components/main/NavBar";
 import InfoProfil from "../components/profil/InfoProfil";
 import PostProfil from "../components/profil/PostProfil";
-import EnteteRetour from "../components/nouveauPost/EnteteRetour";
+import EnteteRetour from "../components/main/EnteteRetour";
 import { ScrollView } from "react-native-virtualized-view"; //! Pour éviter le bug de FlatList
 import { obtenirDataAutreUser } from "../services/firebase/fonctionUtil";
 
@@ -35,16 +35,9 @@ export default function EcranProfilAutre({ navigation, route }) {
         titre={userData ? userData.pseudo : "Loading..."}
         getEranProfil={nonProfil}
       />
-      <ScrollView
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }
-      >
-        <InfoProfil userAutre={userData} userAutreId={userId} estEcranProfilAutre={true}/>
-        <PostProfil userAutre={userId} estEcranProfilAutre={true}/>
+      <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+        <InfoProfil userAutre={userData} userAutreId={userId} estEcranProfilAutre={true} />
+        <PostProfil userAutre={userId} estEcranProfilAutre={true} />
       </ScrollView>
       {/* <NavBar icons={navBarIcons} /> */}
     </SafeAreaView>

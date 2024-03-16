@@ -1,7 +1,7 @@
 import { View, Text, Button, SafeAreaView, StyleSheet, StatusBar, Platform } from "react-native";
 import React from "react";
 import AjoutPost from "../components/nouveauPost/AjoutPost";
-import EnteteRetour from "../components/nouveauPost/EnteteRetour";
+import EnteteRetour from "../components/main/EnteteRetour";
 
 export default function EcranAjoutPost({ navigation }) {
   return (

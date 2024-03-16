@@ -1,6 +1,6 @@
 import { Platform, StatusBar, SafeAreaView, StyleSheet, FlatList } from "react-native";
 import React, { useEffect, useState, useRef } from "react";
-import EnteteRetour from "../components/nouveauPost/EnteteRetour";
+import EnteteRetour from "../components/main/EnteteRetour";
 import { getInfosUtilisateur } from "../services/firebase/fonctionUtil";
 import { obtenirPostsUtilisateurConnecte, obtenirPostsParUserId } from "../services/firebase/fonctionPost";
 import { obtenirDataAutreUser } from "../services/firebase/fonctionUtil";
@@ -39,7 +39,7 @@ export default function EcranProfilDetail({ navigation, route }) {
   useEffect(() => {
     if (route.params?.post && posts) {
       const index = posts.findIndex((post) => post.id === route.params.post.id);
-      if (index >= 0 && (selectionerPostId !== route.params.post.id)) {
+      if (index >= 0 && selectionerPostId !== route.params.post.id) {
         setSelectionerPostId(route.params.post.id);
         flatListRef.current?.scrollToIndex({ index });
       }

@@ -13,7 +13,7 @@ export default function EnteteRetour({ navigation, titre, getEranProfil }) {
           <Image source={require("../../assets/images/parametre.png")} style={styles.btnParametre} />
         </TouchableOpacity>
       ) : (
-        <View style={{height: 40, width: 40}}/>
+        <View style={{ height: 40, width: 40 }} />
       )}
     </View>
   );
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     width: 40,
   },
   btnParametre: {
-    height: 28,
-    width: 28,
+    height: 27,
+    width: 27,
   },
   texteEntete: {
     fontSize: 16,
