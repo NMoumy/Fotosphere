@@ -1,6 +1,6 @@
 # Fotosphere
 
-Bienvenue dans l'application mobile **Fotosphere** ! Cette application a été développée avec Expo et React Native.
+Bienvenue dans l'application mobile **Fotosphere** ! Cette application a été développée avec Expo et React Native et utilise les services de Firebase.
 
 ## Description
 **FotoSphere** est une application mobile conçue dans le cadre de mon projet de fin d'étude, en technique d'intégration multimédia. L'objectif principal de cette application est de permettre aux utilisateurs de partager, d'aimer et de commenter des photos. Il s'agit de créer une plateforme interactive de partage d'images où les utilisateurs peuvent interagir avec du contenu visuel.
