@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   conteneur: {},
 
   logo: {
-    fontSize: 25,
+    fontSize: 22,
     color: "#EA5D55",
     fontFamily: "Poppins-ExtraBold",
     textAlign: "center",
