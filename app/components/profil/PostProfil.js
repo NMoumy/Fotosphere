@@ -166,6 +166,9 @@ const styles = StyleSheet.create({
   imageConteneur: {
     width: Dimensions.get("window").width / 3.12,
     margin: 2,
+    borderWidth: 0.5,
+    borderColor: "#D9D9D9",
+    borderRadius: 4,
   },
 
   image: {
