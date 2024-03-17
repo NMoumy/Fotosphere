@@ -47,7 +47,7 @@ Scan du QR Code : Scannez le QR code affiché dans votre terminal à l'aide de l
 Émulateur Android/iOS : Si vous avez un émulateur ou un simulateur d'installé, vous pouvez cliquer sur les options dans la page web Expo pour lancer l'application sur l'émulateur.
 
 ## Demo
-Voici le lien video vers la demo : https://cmaisonneuveqcca-my.sharepoint.com/:v:/r/personal/e2177120_cmaisonneuve_qc_ca/Documents/Microsoft%20Teams%20Chat%20Files/Screen_Recording_20240317_173749_Fotosphere.mp4?csf=1&web=1&e=gN0L7a
+Voici le lien video vers la demo : [Le lien](https://cmaisonneuveqcca-my.sharepoint.com/:v:/r/personal/e2177120_cmaisonneuve_qc_ca/Documents/Microsoft%20Teams%20Chat%20Files/Screen_Recording_20240317_173749_Fotosphere.mp4?csf=1&web=1&e=gN0L7a)
 
 ## Fichier APK
-...
+Vous pouvez télécharger l'APK de l'application à partir de ce lien : [Télécharger APK](https://1drv.ms/u/s!AuiC5r1nFuNiniMYWYCr-pcxpZv3?e=WQeCQk)
