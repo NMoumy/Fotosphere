@@ -14,7 +14,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "icon": "./app/assets/images/icon.png"
     },
     "android": {
       "adaptiveIcon": {
