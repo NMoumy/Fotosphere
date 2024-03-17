@@ -40,11 +40,11 @@ Après avoir installé les dépendances, vous pouvez démarrer l'application en 
 
    npx expo
 
-Cette commande lancera un serveur de développement et ouvrira une page dans votre navigateur. À partir de là, vous pouvez choisir de lancer l'application sur un émulateur/simulateur ou sur votre propre appareil.
+Cette commande lancera un serveur de développement. À partir de là, vous pouvez choisir de lancer l'application sur un émulateur/simulateur ou sur votre propre appareil.
 
 Options de Lancement
 Scan du QR Code : Scannez le QR code affiché dans votre terminal à l'aide de l'application Expo Go sur votre appareil mobile. Cela lancera l'application sur votre téléphone.
-Émulateur Android/iOS : Si vous avez un émulateur ou un simulateur d'installé, vous pouvez cliquer sur les options dans la page web Expo pour lancer l'application sur l'émulateur.
+Émulateur Android/iOS : Si vous avez un émulateur ou un simulateur d'installé, vous pouvez cliquer sur **a** pour lancer l'application sur l'émulateur android et **i** si l'émulateur ios. Il est preferable de le faire sur android, car l'application a été developper dessus.
 
 ## Demo
 Voici le lien video vers la demo : [Le lien](https://cmaisonneuveqcca-my.sharepoint.com/:v:/r/personal/e2177120_cmaisonneuve_qc_ca/Documents/Microsoft%20Teams%20Chat%20Files/Screen_Recording_20240317_173749_Fotosphere.mp4?csf=1&web=1&e=gN0L7a)
