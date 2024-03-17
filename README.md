@@ -46,7 +46,7 @@ Options de Lancement
 Scan du QR Code : Scannez le QR code affiché dans votre terminal à l'aide de l'application Expo Go sur votre appareil mobile. Cela lancera l'application sur votre téléphone.
 Émulateur Android/iOS : Si vous avez un émulateur ou un simulateur d'installé, vous pouvez cliquer sur **a** pour lancer l'application sur l'émulateur android et **i** si l'émulateur ios. Il est preferable de le faire sur android, car l'application a été developper dessus.
 
-## Demo
+## Démo
 Voici le lien video vers la demo : [Le lien](https://cmaisonneuveqcca-my.sharepoint.com/:v:/r/personal/e2177120_cmaisonneuve_qc_ca/Documents/Microsoft%20Teams%20Chat%20Files/Screen_Recording_20240317_173749_Fotosphere.mp4?csf=1&web=1&e=gN0L7a)
 
 ## Fichier APK
