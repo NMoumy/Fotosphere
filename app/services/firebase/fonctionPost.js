@@ -25,7 +25,7 @@ export const creerPost = async (userId, image, description) => {
       likes: [],
       description,
       date: serverTimestamp(),
-      userId, // Stocker l'ID de l'utilisateur au lieu du pseudo et de la photo de profil
+      userId, // Stocker l'ID de l'utilisateur qui a créé le post, pour recuperer son nom et sa photo
     };
 
     // Ajouter le post à la collection globale de posts
@@ -90,7 +90,11 @@ export const obtenirPostsParUserId = (userId, callback) => {
 
 // Fonction pour obtenir les posts aimés par l'utilisateur actuel ou un autre utilisateur
 export const obtenirPostsAimesParUtilisateur = async (userId) => {
-  const requetePostsAimes = query(collection(firestore, "posts"), where("likes", "array-contains", userId), orderBy("date", "desc"));
+  const requetePostsAimes = query(
+    collection(firestore, "posts"),
+    where("likes", "array-contains", userId),
+    orderBy("date", "desc")
+  );
   const instantane = await getDocs(requetePostsAimes);
   const postsAimes = [];
 
@@ -110,10 +114,18 @@ export const obtenirPostsAimesParUtilisateur = async (userId) => {
 
 export const obtenirNombrePostsParUserId = (userId) => {
   return new Promise((resolve, reject) => {
-    const userPostsQuery = query(collection(firestore, "posts"), where("userId", "==", userId), orderBy("date", "desc"));
+    const userPostsQuery = query(
+      collection(firestore, "posts"),
+      where("userId", "==", userId),
+      orderBy("date", "desc")
+    );
 
-    onSnapshot(userPostsQuery, (snapshot) => {
-      resolve(snapshot.size);
-    }, reject);
+    onSnapshot(
+      userPostsQuery,
+      (snapshot) => {
+        resolve(snapshot.size);
+      },
+      reject
+    );
   });
 };
